@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="600px" viewBox="0 0 800 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sun-lines-2" transform="translate(100.000000, 0.000000)">
+            <g id="Group" transform="translate(78.000000, 78.000000)" fill="#F5A623">
+                <rect id="Rectangle" x="162" y="0" width="126" height="24" rx="10"></rect>
+                <rect id="Rectangle" x="90" y="35.5" width="270" height="24" rx="10"></rect>
+                <rect id="Rectangle" x="48" y="71" width="354" height="24" rx="10"></rect>
+                <rect id="Rectangle" x="24" y="106.5" width="402" height="24" rx="10"></rect>
+                <rect id="Rectangle" x="6" y="142" width="438" height="24" rx="10"></rect>
+                <rect id="Rectangle" x="0" y="177.5" width="450" height="24" rx="10"></rect>
+            </g>
+            <g id="Group" transform="translate(300.000000, 408.000000) rotate(180.000000) translate(-300.000000, -408.000000) translate(72.000000, 288.000000)">
+                <rect id="Rectangle" fill="#F5A623" x="0" y="213" width="456" height="24" rx="10"></rect>
+                <rect id="Rectangle" fill="#B2D5FF" x="162" y="0" width="126" height="24" rx="10"></rect>
+                <rect id="Rectangle" fill="#B2D5FF" x="90" y="35.5" width="270" height="24" rx="10"></rect>
+                <rect id="Rectangle" fill="#B2D5FF" x="48" y="71" width="354" height="24" rx="10"></rect>
+                <rect id="Rectangle" fill="#B2D5FF" x="24" y="106.5" width="402" height="24" rx="10"></rect>
+                <rect id="Rectangle" fill="#B2D5FF" x="6" y="142" width="438" height="24" rx="10"></rect>
+                <rect id="Rectangle" fill="#F5A623" x="0" y="177.5" width="450" height="24" rx="10"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

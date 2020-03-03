@@ -1,30 +1,180 @@
 import {Link} from 'gatsby'
-import React from 'react'
-import Icon from './icon'
-import {cn} from '../lib/helpers'
+import React, { useContext, useState } from 'react'
+import styled, {ThemeContext} from 'styled-components'
+import Logo from '../assets/logo-2.svg'
+import { IoIosMenu } from "react-icons/io";
 
-import styles from './header.module.css'
+const HeaderContainer = styled.div`
+  width: 100%;
+`
 
-const Header = ({onHideNav, onShowNav, showNav, siteTitle}) => (
-  <div className={styles.root}>
-    <div className={styles.wrapper}>
-      <div className={styles.branding}>
-        <Link to='/'>{siteTitle}</Link>
-      </div>
+const Navbar = styled.nav`
+  max-width: ${props => props.theme.contentWidth};
+  margin: auto;
+  display: grid;
+  grid-template-columns: 60px auto auto;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  padding: 15px;
 
-      <button className={styles.toggleNavButton} onClick={showNav ? onHideNav : onShowNav}>
-        <Icon symbol='hamburger' />
-      </button>
+  ul{
+    /* display: flex; */
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
 
-      <nav className={cn(styles.nav, showNav && styles.showNav)}>
-        <ul>
-          <li>
-            <Link to='/archive/'>Archive</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-)
+    li{
+      margin: 0 10px 0 0;
+      a {
+        color: ${props => props.theme.text.secondary};
+
+        &:hover {
+          color: ${props => props.theme.text.primary};
+        }
+      }
+    }
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  .logo {
+    height: 50px;
+    width: 50px;
+  }
+`
+
+const Menu = styled.div`
+  justify-self: right;
+  vertical-align: bottom;
+
+ ul {
+   display: flex;
+ }
+
+  svg {
+    vertical-align: bottom;
+  }
+
+  @media (max-width: 600px) {
+    ul {
+      display: none;
+    }    
+  }
+
+  @media (min-width: 600px) {
+    svg {
+      display: none;
+    }    
+  }
+`
+
+const Title = styled.div`
+  display: grid;
+  justify-items: left;
+  color: ${props => props.theme.text.primary};
+
+  h1 {
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.2rem;
+
+  }
+
+  .subtitle{
+    font-size: 0.7rem;
+  }
+`
+
+const Dropdown = styled.div`
+ul{
+  li {
+    margin: 10px 0 0 0;
+  }
+}
+`
+
+const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle}) => {
+  const [dropdownShown, setDropdownShown] = useState(false)
+  console.log(dropdownShown)
+
+  const themeContext = useContext(ThemeContext);
+  console.log(themeContext)
+
+  const linksList = (<ul>
+    <li>
+      <Link to='/about'>About</Link>
+    </li>
+    <li>
+      <Link to='/photos'>Photos</Link>
+    </li>
+    <li>
+      <Link to='/amenities'>Amenities</Link>
+    </li>
+    <li>
+      <Link to='/blog'>Blog</Link>
+    </li>
+    <li>
+      <Link to='/reserve'>Reservations</Link>
+    </li>
+  </ul>)
+
+  return(
+    <HeaderContainer>
+      <Navbar>
+        <Logo className='logo'  onClick={ () => console.log('clicked')} />
+
+          <Link to='/'>
+            <Title>
+              <h1>{siteTitle}</h1>
+              <span className='subtitle'>{subtitle}</span>
+            </Title>
+          </Link>
+
+        <Menu>
+          {/* <button onClick={ () => setDropdownShown(prev => !prev)} style={{padding: 0}}>
+            <Icon symbol='menu' />
+          </button> */}
+          <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} />
+          {linksList}
+
+          {/* <ul>
+            <li>
+              <Link to='/amenities/'>Amenities</Link>
+            </li>
+            <li>
+              <Link to='/about/'>About</Link>
+            </li>
+            <li>
+              <Link to='/blog'>Blog</Link>
+            </li>
+            <li>
+              <Link to='/reserve'>Reservations</Link>
+            </li>
+          </ul> */}
+        </Menu>
+
+        {dropdownShown && (<><span></span><Dropdown>
+          {linksList}
+          {/* <ul>
+            <li>
+              <Link to='/amenities/'>Amenities</Link>
+            </li>
+            <li>
+              <Link to='/about/'>About</Link>
+            </li>
+            <li>
+              <Link to='/blog'>Blog</Link>
+            </li>
+            <li>
+              <Link to='/reserve'>Reservations</Link>
+            </li>
+          </ul> */}
+          </Dropdown></>)}
+      </Navbar>
+    </HeaderContainer>
+  )
+}
 
 export default Header

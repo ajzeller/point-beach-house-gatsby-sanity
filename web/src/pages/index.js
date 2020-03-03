@@ -10,6 +10,28 @@ import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
+import ImageGallery from 'react-image-gallery';
+import styled from 'styled-components'
+import "react-image-gallery/styles/css/image-gallery.css";
+
+const ImageGalleryContainer = styled.div`
+  
+  .image-gallery-image {
+    height: 100vw;
+    object-fit: cover;
+  }
+
+  .image-gallery-thumbnail-image {
+    object-fit: cover;
+    height: 50px;
+  }
+
+  @media (min-width: 600px) {
+    .image-gallery-image{
+      height: 700px;
+    }
+  }
+`
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -37,6 +59,7 @@ export const query = graphql`
   query IndexPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
+      subtitle
       description
       keywords
     }
@@ -61,11 +84,26 @@ export const query = graphql`
         }
       }
     }
+    images: allSanityGalleryImage {
+      edges {
+        node {
+          title
+          image {
+            asset {
+              fluid {
+                ...GatsbySanityImageFluid
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `
 
 const IndexPage = props => {
   const {data, errors} = props
+  console.log(data)
 
   if (errors) {
     return (
@@ -88,6 +126,14 @@ const IndexPage = props => {
     )
   }
 
+  const images = data.images.edges.map(item => ({
+    original: item.node.image.asset.fluid.src,
+    thumbnail: item.node.image.asset.fluid.src,
+    originalTitle: item.node.title,
+    // thumbnailLabel: 'label',
+    description: item.node.title,
+  }))
+
   return (
     <Layout>
       <SEO
@@ -95,6 +141,14 @@ const IndexPage = props => {
         description={site.description}
         keywords={site.keywords}
       />
+      <ImageGalleryContainer>
+        <ImageGallery 
+          items={images}
+          showBullets={true} 
+          thumbnailPosition={'bottom'}
+          showPlayButton={false}
+        />
+      </ImageGalleryContainer>
       <Container>
         <h1 hidden>Welcome to {site.title}</h1>
         {postNodes && (

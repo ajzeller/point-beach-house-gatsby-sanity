@@ -9,6 +9,7 @@ import author from './documents/author'
 import category from './documents/category'
 import post from './documents/post'
 import siteSettings from './documents/siteSettings'
+import GalleryImage from './documents/galleryImage'
 
 // Object types
 import bodyPortableText from './objects/bodyPortableText'
@@ -30,6 +31,7 @@ export default createSchema({
     post,
     category,
     author,
+    GalleryImage,
     mainImage,
     authorReference,
     bodyPortableText,

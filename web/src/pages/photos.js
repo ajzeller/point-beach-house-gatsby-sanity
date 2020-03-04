@@ -11,11 +11,10 @@ import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
+import ImageGallery from 'react-image-gallery';
 import styled from 'styled-components'
 import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
-import Summary from '../components/summary'
-import VideoButton from '../components/video-button'
 
 const ImageGalleryContainer = styled.div`
   
@@ -34,36 +33,6 @@ const ImageGalleryContainer = styled.div`
       height: 700px;
     }
   }
-`
-
-const HeroImage = styled(Image)`
-  height: 600px;
-
-  @media (max-width: 600px) {
-    height: 400px;
-  }
-`
-
-const HeroTitle = styled.h1`
-  font-size: 2.4rem;
-  color: white;
-  text-align: center;
-  margin: 20px auto;
-  padding: 0 10px;
-  /* text-align: center; */
-  box-sizing: border-box;
-  width: 100%;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
-  /* left: 16px; */
-`
-
-const HeroContainer = styled.div`
-  position: relative;
-  /* z-index: -1; */
 `
 
 export const query = graphql`
@@ -89,7 +58,7 @@ export const query = graphql`
     }
   }
 
-  query IndexPageQuery {
+  query PhotosPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       subtitle
@@ -143,7 +112,7 @@ export const query = graphql`
   }
 `
 
-const IndexPage = props => {
+const Photos = props => {
   const {data, errors} = props
   console.log(data)
 
@@ -183,29 +152,19 @@ const IndexPage = props => {
         description={site.description}
         keywords={site.keywords}
       />
-
-      <HeroContainer>
-        <HeroImage fluid={data.site.heroImage.asset.fluid} />
-        <HeroTitle>{data.site.heroTitle}</HeroTitle>
-      </HeroContainer>
-      
       <Main>
-        
-        <Summary heroTitle={data.site.heroTitle} heroSummary={data.site.heroSummary} />
-
-        <Container>
-          <h1 hidden>Welcome to {site.title}</h1>
-          {postNodes && (
-            <BlogPostPreviewList
-            title='Latest blog posts'
-            nodes={postNodes}
-            browseMoreHref='/archive/'
+        <ImageGalleryContainer>
+          <ImageGallery 
+            items={images}
+            showBullets={true} 
+            thumbnailPosition={'bottom'}
+            showPlayButton={false}
+            showIndex={true}
             />
-            )}
-        </Container>
+        </ImageGalleryContainer>
       </Main>
     </Layout>
   )
 }
 
-export default IndexPage
+export default Photos

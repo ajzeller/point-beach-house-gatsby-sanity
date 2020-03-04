@@ -18,8 +18,5 @@
     "lerna": "^3.13.1"
   },
   "dependencies": {
-    "babel-plugin-styled-components": "^1.10.7",
-    "gatsby-plugin-styled-components": "^3.1.19",
-    "styled-components": "^5.0.1"
   }
 }

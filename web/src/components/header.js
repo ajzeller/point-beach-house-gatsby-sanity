@@ -6,6 +6,7 @@ import { IoIosMenu } from "react-icons/io";
 
 const HeaderContainer = styled.div`
   width: 100%;
+  background-color: ${props => props.theme.bg.secondary};
 `
 
 const Navbar = styled.nav`
@@ -104,13 +105,13 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle}) => {
 
   const linksList = (<ul>
     <li>
-      <Link to='/about'>About</Link>
-    </li>
-    <li>
       <Link to='/photos'>Photos</Link>
     </li>
     <li>
       <Link to='/amenities'>Amenities</Link>
+    </li>
+    <li>
+      <Link to='/location'>Location</Link>
     </li>
     <li>
       <Link to='/blog'>Blog</Link>
@@ -138,39 +139,10 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle}) => {
           </button> */}
           <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} />
           {linksList}
-
-          {/* <ul>
-            <li>
-              <Link to='/amenities/'>Amenities</Link>
-            </li>
-            <li>
-              <Link to='/about/'>About</Link>
-            </li>
-            <li>
-              <Link to='/blog'>Blog</Link>
-            </li>
-            <li>
-              <Link to='/reserve'>Reservations</Link>
-            </li>
-          </ul> */}
         </Menu>
 
         {dropdownShown && (<><span></span><Dropdown>
           {linksList}
-          {/* <ul>
-            <li>
-              <Link to='/amenities/'>Amenities</Link>
-            </li>
-            <li>
-              <Link to='/about/'>About</Link>
-            </li>
-            <li>
-              <Link to='/blog'>Blog</Link>
-            </li>
-            <li>
-              <Link to='/reserve'>Reservations</Link>
-            </li>
-          </ul> */}
           </Dropdown></>)}
       </Navbar>
     </HeaderContainer>

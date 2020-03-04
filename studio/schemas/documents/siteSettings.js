@@ -7,12 +7,12 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Title'
+      title: 'Title in header'
     },
     {
       name: 'subtitle',
       type: 'string',
-      title: 'Subtitle'
+      title: 'Subtitle in header'
     },
     {
       name: 'description',
@@ -36,6 +36,24 @@ export default {
       description: 'Publish an author and set a reference to them here.',
       title: 'Author',
       to: [{type: 'author'}]
+    },
+    {
+      name: 'heroImage',
+      type: 'image',
+      title: 'Hero Image',
+      description: 'Main image on home page'
+    },
+    {
+      name: 'heroTitle',
+      type: 'string',
+      title: 'Hero title',
+      description: 'Main title in hero'
+    },
+    {
+      name: 'heroSummary',
+      type: 'text',
+      title: 'Hero text',
+      description: 'Main text in hero'
     }
   ]
 }

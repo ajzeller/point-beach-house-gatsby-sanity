@@ -7,18 +7,19 @@ import '../styles/layout.css'
 import styles from './layout.module.css'
 import "../styles/index.scss"
 
-const Main = styled.main`
-  max-width: ${props => props.theme.contentWidth};
+const Content = styled.main`
+  /* max-width: ${props => props.theme.contentWidth}; */
   margin: auto;
+  background-color: ${props => props.theme.bg.secondary};
 `
 
 const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle, subtitle}) => (
   <ThemeProvider theme={theme} >
     <>
       <Header siteTitle={siteTitle} subtitle={subtitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} />
-      <Main>
+      <Content>
         {children}
-      </Main>
+      </Content>
       {/* <div className={styles.content}>{children}</div> */}
       <footer className={styles.footer}>
         <div className={styles.footerWrapper}>

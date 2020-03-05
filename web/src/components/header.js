@@ -6,7 +6,8 @@ import { IoIosMenu } from "react-icons/io";
 
 const HeaderContainer = styled.div`
   width: 100%;
-  background-color: ${props => props.theme.bg.secondary};
+  background-color: ${props => props.theme.bg.primary};
+  border-bottom: 1px solid ${props => props.theme.border.secondary};
 `
 
 const Navbar = styled.nav`

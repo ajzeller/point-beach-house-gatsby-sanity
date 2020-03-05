@@ -4,7 +4,7 @@ const theme = {
     secondary: '#F7FBFF'
   },
   text: {
-    primary: '#050505',
+    primary: '#4A4A4A',
     secondary: '#525560'
   },
   border: {
@@ -12,9 +12,10 @@ const theme = {
     secondary: '#EEEEEE'
   },
   colors: {
-    blue: '#479CFF'
+    blue: '#479CFF',
+    darkBlue: '#003F88'
   },
-  contentWidth: '1000px'
+  contentWidth: '1200px'
 }
 
 export default theme

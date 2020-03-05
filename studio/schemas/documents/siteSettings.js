@@ -50,10 +50,55 @@ export default {
       description: 'Main title in hero'
     },
     {
-      name: 'heroSummary',
+      name: 'summaryText',
       type: 'text',
-      title: 'Hero text',
-      description: 'Main text in hero'
+      title: 'Summary text',
+      description: 'Summary text'
+    },
+    {
+      name: 'secondImage',
+      type: 'image',
+      title: 'Image #2',
+      description: 'Second image on home page'
+    },
+    {
+      name: 'thirdImage',
+      type: 'image',
+      title: 'Image #3',
+      description: 'Third image on home page'
+    },
+    {
+      name: 'fourthImage',
+      type: 'image',
+      title: 'Image #4',
+      description: 'Fourth image on home page'
+    },
+    {
+      name: 'locationText',
+      type: 'text',
+      title: 'Location Text',
+      description: 'Location Text'
+    },
+    {
+      name: 'insideText',
+      type: 'text',
+      title: 'Inside Text',
+      description: 'Inside Text'
+    },
+    {
+      name: 'homeGallery',
+      type: 'array',
+      title: 'Home Gallery',
+      of: [
+        {
+          type: 'reference',
+          to: [ 
+            {
+              type: 'galleryImage'
+            }
+          ]
+        }
+      ]
     }
   ]
 }

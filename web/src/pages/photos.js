@@ -11,15 +11,15 @@ import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
-import ImageGallery from 'react-image-gallery';
 import styled from 'styled-components'
+import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
 
 const ImageGalleryContainer = styled.div`
   
   .image-gallery-image {
-    height: 100vw;
+    height: 300px;
     object-fit: cover;
   }
 
@@ -72,7 +72,7 @@ export const query = graphql`
         }
       }
       heroTitle
-      heroSummary
+      summaryText
     }
     posts: allSanityPost(
       limit: 6
@@ -160,6 +160,7 @@ const Photos = props => {
             thumbnailPosition={'bottom'}
             showPlayButton={false}
             showIndex={true}
+            showFullscreenButton={false}
             />
         </ImageGalleryContainer>
       </Main>

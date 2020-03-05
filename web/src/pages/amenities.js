@@ -17,80 +17,42 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
 import IndexBody from '../components/indexBody'
 import VideoButton from '../components/video-button'
-import Sunset from '../assets/svg/sunset_graphic.svg'
+import SleepingLayout from '../assets/svg/sleeping_layout.svg'
+import { Panel, AmenitiesItem, AmenitiesGrid, Label } from '../components/indexBody'
+import Icon from '../components/icon'
 
-const ImageGalleryContainer = styled.div`
-  /* max-width: 1200px; */
-  /* margin: 0 auto; */
-
-  .image-gallery-image {
-    height: 100vw;
-    object-fit: cover;
-
-  }
-
-  .image-gallery-thumbnail-image {
-    object-fit: cover;
-    height: 50px;
-  }
-
-  @media (min-width: 600px) {
-    .image-gallery-image{
-      height: 700px;
-    }
-  }
+const Title = styled.h2`
+  font-size: 1.6rem;
+  margin: 0;
 `
 
-const HeroImage = styled(Image)`
-  height: 600px;
-
-  @media (max-width: 600px) {
-    height: 400px;
-  }
-`
-
-const HeroTitle = styled.div`
-  color: white;
-  text-align: center;
-  /* margin: 20px auto; */
-  /* padding: 0 10px; */
-  /* text-align: center; */
-  box-sizing: border-box;
-  width: 100%;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
-
-  h1{
-    font-size: 2.4rem;
-    margin: 0 auto 10px auto;
-  }
+const BedroomLayout = styled.div`
+  display: grid;
+  justify-items: center;
 
   h2{
-    font-size: 1rem;
-    /* text-transform: uppercase; */
-    margin: 0 auto;
-  }
-  /* left: 16px; */
-`
-
-const HeroContainer = styled.div`
-  position: relative;
-  
-  svg{
-    width: 100%;
+    margin: 5px 0;
   }
 `
 
-const BlogPreviewContainer = styled.div`
-  border-top: 1px solid ${props => props.theme.border.secondary};
-  background-color: ${props => props.theme.bg.primary};
+const AmenitiesBody = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  margin: 10px 0 0px 0;
+  padding: 0 0 20px 0;
+`
+
+const AmenitiesGridFeatured = styled(AmenitiesGrid)`
+  /* border: 2px solid ${props => props.theme.colors.blue}; */
+`
+
+const LabelFeatured = styled(Label)`
+  color: ${props => props.theme.colors.blue};
+`
+
+const AmenityText = styled.span`
   width: 100%;
-  box-sizing: border-box;
-  margin: 0px auto 0 auto;
-  padding: 0 10px;
 `
 
 export const query = graphql`
@@ -116,7 +78,7 @@ export const query = graphql`
     }
   }
 
-  query IndexPageQuery {
+  query AmenitiesPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       subtitle
@@ -202,7 +164,7 @@ export const query = graphql`
   }
 `
 
-const IndexPage = props => {
+const Amenities = props => {
   const {data, errors} = props
   console.log(data)
 
@@ -240,38 +202,50 @@ const IndexPage = props => {
         keywords={site.keywords}
       />
 
-      <HeroContainer>
-        <HeroImage fluid={data.site.heroImage.asset.fluid} />
-        <HeroTitle>
-          <h1>{data.site.heroTitle}</h1>
-        </HeroTitle>
-      </HeroContainer>
-      
-        <IndexBody 
-          data={data}
-          heroTitle={data.site.heroTitle} 
-          summaryText={data.site.summaryText} 
-          secondImage={data.site.secondImage.asset.fluid} 
-          thirdImage={data.site.thirdImage.asset.fluid} 
-          fourthImage={data.site.fourthImage.asset.fluid} 
-        />
+    <Main>
+      <AmenitiesBody>
+        <Title>Amenities</Title>
 
-        <BlogPreviewContainer>
-          <Main>
+        <AmenitiesGrid>
+          <Label>Overview</Label>
+          <AmenitiesItem icon={<Icon symbol='house' />} text='Entire home &middot; 2500 sq ft' />
+          <AmenitiesItem icon={<Icon symbol='people' />} text='10 Guests' />
+          <AmenitiesItem icon={<Icon symbol='bed' />} text='4 Bedrooms' />
+          <AmenitiesItem icon={<Icon symbol='bath' />} text='2.5 Bathrooms' />
+        </AmenitiesGrid>
 
-            <h1 hidden>Welcome to {site.title}</h1>
-            {postNodes && (
-              <BlogPostPreviewList
-              title='Latest blog posts'
-              nodes={postNodes}
-              browseMoreHref='/archive/'
-              />
-              )}
-          </Main>
-        </BlogPreviewContainer>
+        <AmenitiesGridFeatured>
+          <LabelFeatured>Featured</LabelFeatured>
+          <AmenitiesItem icon={<Icon symbol='sunset' />} text='Waterfront view with dock' />
+          <AmenitiesItem icon={<Icon symbol='hotpot' />} text='Modern fully-equipped kitchen' />
+          <AmenitiesItem icon={<Icon symbol='snowflake' />} text='A/C' />
+          <AmenitiesItem icon={<Icon symbol='laptop' />} text='High-speed WiFi' />
+          <AmenitiesItem icon={<Icon symbol='fireplace' />} text='Fireplace' />
+          <AmenitiesItem icon={<Icon symbol='washer' />} text='Washer & Dryer' />
+          <AmenitiesItem icon={<Icon symbol='bike' />} text='Bikes' />
+          <AmenitiesItem icon={<Icon symbol='kayak' />} text='Kayaks' />
+        </AmenitiesGridFeatured>
+
+        {/* <AmenitiesGrid>
+          <Label>Basic</Label>
+          <AmenityText>Air conditioning</AmenityText>
+          <AmenityText>Washer and dryer</AmenityText>
+          <AmenityText>Essentials</AmenityText>
+          <AmenityText>Beach Essentials</AmenityText>
+          <AmenityText>Indoor fireplace</AmenityText>
+          <AmenityText>Indoor fireplace</AmenityText>
+        </AmenitiesGrid> */}
+
+        <Title>Sleeping Arrangements</Title>
+        <BedroomLayout>
+          <SleepingLayout />
+        </BedroomLayout>
+      </AmenitiesBody>
+    </Main>
+
     </Layout>
   )
 }
 
-export default IndexPage
+export default Amenities
 // 

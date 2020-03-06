@@ -333,7 +333,9 @@ const IndexBody = ({ data }) => {
 
   const images = data.site.gallery.map(item => ({
     original: item.image.asset.fluid.src,
-    thumbnail: item.image.asset.fluid.src
+    thumbnail: item.image.asset.fluid.src,
+    originalAlt: item.image.alt,
+    thumbnailAlt: item.image.alt,
   }))
 
   return(
@@ -350,7 +352,7 @@ const IndexBody = ({ data }) => {
       </Hero>
 
       <HeroContainer>
-        <HeroImage fluid={data.site.heroImage.asset.fluid} />
+        <HeroImage fluid={data.site.heroImage.image.asset.fluid} alt={data.site.heroImage.image.alt} />
       </HeroContainer>
 
       <BodyGrid>

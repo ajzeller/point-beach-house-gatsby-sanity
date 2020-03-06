@@ -213,13 +213,6 @@ export const query = graphql`
       subtitle
       description
       keywords
-      heroImage{
-        asset {
-          fluid {
-            ...GatsbySanityImageFluid
-          }
-        }
-      }
       heroTitle
       summaryText
       locationText

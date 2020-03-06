@@ -208,10 +208,13 @@ export const query = graphql`
       description
       keywords
       heroImage{
-        asset {
-          fluid {
-            ...GatsbySanityImageFluid
+        image{
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
+            }
           }
+        alt
         }
       }
       heroTitle

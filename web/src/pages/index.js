@@ -192,17 +192,20 @@ export const query = graphql`
     }
   }
 
-  query IndexPage2Query {
+  query IndexPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       subtitle
       description
       keywords
       heroImage{
-        asset {
-          fluid {
-            ...GatsbySanityImageFluid
+        image{
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
+            }
           }
+        alt
         }
       }
       heroTitle
@@ -237,6 +240,7 @@ export const query = graphql`
               ...GatsbySanityImageFluid
             }
           }
+          alt
         }
       }
       reviews: reviews {

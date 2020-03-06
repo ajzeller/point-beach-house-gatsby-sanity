@@ -87,11 +87,11 @@ const Footer = ({ siteTitle }) => {
             <span className='bold' >{siteTitle}</span>
         </Link>
 
-        <a href='https://www.instagram.com/pointbeachhouse/' target='_blank'>
-          <FaInstagram size='20px' />
+        <a href='https://www.instagram.com/pointbeachhouse/' target='_blank' rel="noopener">
+          <FaInstagram size='20px' alt='Instagram Icon' />
         </a>
-        <a href='https://www.facebook.com/pointbeachhousedoorcounty/' target='_blank'>
-          <FaFacebook size='20px' />
+        <a href='https://www.facebook.com/pointbeachhousedoorcounty/' target='_blank' rel="noopener">
+          <FaFacebook size='20px' alt='Facebook Icon' />
         </a>
         {linksList}
 

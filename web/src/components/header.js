@@ -118,6 +118,7 @@ const Dropdown = styled.div`
           }
     }
   }
+}
 `
 
 const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage}) => {
@@ -139,9 +140,9 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage
     <li className={currentPage == 'amenities' && 'current'}>
       <Link to='/amenities'>Amenities</Link>
     </li>
-    <li className={currentPage == 'location' && 'current'}>
+    {/* <li className={currentPage == 'location' && 'current'}>
       <Link to='/location'>Location</Link>
-    </li>
+    </li> */}
     <li className={currentPage == 'blog' && 'current'}>
       <Link to='/blog'>Blog</Link>
     </li>

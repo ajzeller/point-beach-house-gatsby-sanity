@@ -39,9 +39,14 @@ export default {
     },
     {
       name: 'heroImage',
-      type: 'image',
+      type: 'reference',
       title: 'Hero Image',
-      description: 'Main image on home page'
+      description: 'Main image on home page',
+      to: [ 
+        {
+          type: 'galleryImage'
+        }
+      ]
     },
     {
       name: 'heroTitle',

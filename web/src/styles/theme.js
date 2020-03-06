@@ -1,11 +1,13 @@
 const theme = {
   bg: {
     primary: '#fff',
-    secondary: '#F7FBFF'
+    secondary: '#F7FBFF',
+    lightBlue: '#E5F2FF',
   },
   text: {
     primary: '#4A4A4A',
-    secondary: '#525560'
+    secondary: '#525560',
+    tertiary: '#9B9B9B'
   },
   border: {
     primary: '#DDDDDD',
@@ -13,7 +15,9 @@ const theme = {
   },
   colors: {
     blue: '#479CFF',
-    darkBlue: '#003F88'
+    darkBlue: '#003F88',
+    orange: '#F5A623',
+    grey: '#858585'
   },
   contentWidth: '1200px'
 }

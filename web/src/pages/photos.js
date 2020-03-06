@@ -146,7 +146,7 @@ const Photos = props => {
   }))
 
   return (
-    <Layout>
+    <Layout currentPage='photos'>
       <SEO
         title={site.title}
         description={site.description}

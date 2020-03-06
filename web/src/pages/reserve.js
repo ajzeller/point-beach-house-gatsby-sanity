@@ -103,7 +103,7 @@ const Hero = styled.div`
   background-color: ${props => props.theme.bg.primary};
 `
 
-const IndexPage = props => {
+const Reserve = props => {
   const {data, errors} = props
   console.log(data)
 
@@ -134,12 +134,21 @@ const IndexPage = props => {
   }))
 
   return (
-    <Layout currentPage='index'>
+    <Layout currentPage='reserve'>
       <SEO
         title={site.title}
         description={site.description}
         keywords={site.keywords}
       />
+
+      {/* <Hero>
+        <Title>{data.site.heroTitle}</Title>
+      </Hero>
+
+      <HeroContainer>
+        <HeroImage fluid={data.site.heroImage.asset.fluid} />
+
+      </HeroContainer> */}
       
         <IndexBody 
           data={data}
@@ -167,7 +176,7 @@ const IndexPage = props => {
   )
 }
 
-export default IndexPage
+export default Reserve
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -192,7 +201,7 @@ export const query = graphql`
     }
   }
 
-  query IndexPage2Query {
+  query ReserveQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       subtitle

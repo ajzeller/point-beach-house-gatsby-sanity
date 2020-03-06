@@ -92,7 +92,7 @@ const Blog = props => {
   }
 
   return (
-    <Layout>
+    <Layout currentPage='blog'>
       <SEO
         title={site.title}
         description={site.description}

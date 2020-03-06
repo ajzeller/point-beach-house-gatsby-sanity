@@ -12,19 +12,10 @@ import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import styled from 'styled-components'
-import ImageGallery from 'react-image-gallery';
-import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
-import IndexBody from '../components/indexBody'
-import VideoButton from '../components/video-button'
 import SleepingLayout from '../assets/svg/sleeping_layout.svg'
-import { Panel, AmenitiesItem, AmenitiesGrid, Label } from '../components/indexBody'
+import { Panel, AmenitiesItem, Label } from '../components/indexBody'
 import Icon from '../components/icon'
-
-const Title = styled.h2`
-  font-size: 1.6rem;
-  margin: 0;
-`
 
 const BedroomLayout = styled.div`
   display: grid;
@@ -41,19 +32,157 @@ const AmenitiesBody = styled.div`
   grid-gap: 20px;
   margin: 10px 0 0px 0;
   padding: 0 0 20px 0;
+
+  @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 `
 
-const AmenitiesGridFeatured = styled(AmenitiesGrid)`
-  /* border: 2px solid ${props => props.theme.colors.blue}; */
+const AmenitiesSection = styled(Panel)`
+  display: grid;
+  grid-template-columns: 1fr;
+  border-radius: 5px;
+  padding: 16px;
+  border: 1px solid ${props => props.theme.border.primary};
+  justify-items: left;
+  align-content: start;
+  grid-gap: 12px;
+
+  /* &.featured{
+    @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  } */
+`
+
+const AmenitiesGrid = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  grid-gap: 12px;
+  justify-items: left;
+
+  @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 `
 
 const LabelFeatured = styled(Label)`
   color: ${props => props.theme.colors.blue};
 `
 
-const AmenityText = styled.span`
-  width: 100%;
+const Sleeping = styled.div`
+  display: grid;
+  grid-gap: 12px;
+  justify-items: center;
 `
+
+const AmenityName = styled.span`
+  font-size: 1rem;
+`
+
+const AmenityDescription = styled.span`
+  font-size: 0.8rem;
+  color: ${props => props.theme.text.tertiary};
+`
+
+const AmenityItemGrid = styled.div`
+  display: grid;
+
+`
+
+const Amenities = props => {
+  const {data, errors} = props
+  console.log(data)
+
+  if (errors) {
+    return (
+      <Layout>
+        <GraphQLErrorList errors={errors} />
+      </Layout>
+    )
+  }
+
+  const site = (data || {}).site
+  const postNodes = (data || {}).posts
+    ? mapEdgesToNodes(data.posts)
+      .filter(filterOutDocsWithoutSlugs)
+      .filter(filterOutDocsPublishedInTheFuture)
+    : []
+
+  if (!site) {
+    throw new Error(
+      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
+    )
+  }
+
+  return (
+    <Layout currentPage='amenities'>
+      <SEO
+        title={site.title}
+        description={site.description}
+        keywords={site.keywords}
+      />
+
+    <Main>
+      <AmenitiesBody>
+
+        <Sleeping>
+          <Label>Sleeping Arrangements</Label>
+          <BedroomLayout>
+            <SleepingLayout />
+          </BedroomLayout>
+        </Sleeping>
+
+        <AmenitiesSection>
+          <Label>Overview</Label>
+          <AmenitiesGrid>
+            <AmenitiesItem icon={<Icon symbol='house' />} text='Entire home &middot; 2500 sq ft' />
+            <AmenitiesItem icon={<Icon symbol='people' />} text='10 Guests' />
+            <AmenitiesItem icon={<Icon symbol='bed' />} text='4 Bedrooms' />
+            <AmenitiesItem icon={<Icon symbol='bath' />} text='2.5 Bathrooms' />
+          </AmenitiesGrid>
+        </AmenitiesSection>
+
+
+
+        <AmenitiesSection className='featured'>
+          <LabelFeatured>Featured</LabelFeatured>
+          <AmenitiesGrid>
+            <AmenitiesItem icon={<Icon symbol='sunset' />} text='Waterfront view with dock' />
+            <AmenitiesItem icon={<Icon symbol='hotpot' />} text='Modern fully-equipped kitchen' />
+            <AmenitiesItem icon={<Icon symbol='snowflake' />} text='A/C' />
+            <AmenitiesItem icon={<Icon symbol='laptop' />} text='High-speed WiFi' />
+            <AmenitiesItem icon={<Icon symbol='fireplace' />} text='Fireplace' />
+            <AmenitiesItem icon={<Icon symbol='washer' />} text='Washer & Dryer' />
+            <AmenitiesItem icon={<Icon symbol='bike' />} text='Bikes' />
+            <AmenitiesItem icon={<Icon symbol='kayak' />} text='Kayaks' />
+          </AmenitiesGrid>
+        </AmenitiesSection>
+
+        {data.site.amenities.map(item => (
+          <AmenitiesSection key={item.name}>
+            <Label>{item.name}</Label>
+            <AmenitiesGrid>
+              {item.amenities.map(amenity => (
+                <AmenityItemGrid key={amenity.name}>
+                  <AmenityName>{amenity.name}</AmenityName>
+                  <AmenityDescription>{amenity.description}</AmenityDescription>
+                </AmenityItemGrid>
+              ))}
+            </AmenitiesGrid>
+
+          </AmenitiesSection>
+        ))}
+
+      </AmenitiesBody>
+    </Main>
+
+    </Layout>
+  )
+}
+
+export default Amenities
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -125,6 +254,13 @@ export const query = graphql`
           }
         }
       }
+      amenities: amenityGroups {
+        name
+        amenities {
+          description
+          name
+        }
+      }
     }
     posts: allSanityPost(
       limit: 6
@@ -163,89 +299,3 @@ export const query = graphql`
     }
   }
 `
-
-const Amenities = props => {
-  const {data, errors} = props
-  console.log(data)
-
-  if (errors) {
-    return (
-      <Layout>
-        <GraphQLErrorList errors={errors} />
-      </Layout>
-    )
-  }
-
-  const site = (data || {}).site
-  const postNodes = (data || {}).posts
-    ? mapEdgesToNodes(data.posts)
-      .filter(filterOutDocsWithoutSlugs)
-      .filter(filterOutDocsPublishedInTheFuture)
-    : []
-
-  if (!site) {
-    throw new Error(
-      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
-    )
-  }
-
-  const images = data.site.gallery.map(item => ({
-    original: item.image.asset.fluid.src,
-    thumbnail: item.image.asset.fluid.src
-  }))
-
-  return (
-    <Layout>
-      <SEO
-        title={site.title}
-        description={site.description}
-        keywords={site.keywords}
-      />
-
-    <Main>
-      <AmenitiesBody>
-        <Title>Amenities</Title>
-
-        <AmenitiesGrid>
-          <Label>Overview</Label>
-          <AmenitiesItem icon={<Icon symbol='house' />} text='Entire home &middot; 2500 sq ft' />
-          <AmenitiesItem icon={<Icon symbol='people' />} text='10 Guests' />
-          <AmenitiesItem icon={<Icon symbol='bed' />} text='4 Bedrooms' />
-          <AmenitiesItem icon={<Icon symbol='bath' />} text='2.5 Bathrooms' />
-        </AmenitiesGrid>
-
-        <AmenitiesGridFeatured>
-          <LabelFeatured>Featured</LabelFeatured>
-          <AmenitiesItem icon={<Icon symbol='sunset' />} text='Waterfront view with dock' />
-          <AmenitiesItem icon={<Icon symbol='hotpot' />} text='Modern fully-equipped kitchen' />
-          <AmenitiesItem icon={<Icon symbol='snowflake' />} text='A/C' />
-          <AmenitiesItem icon={<Icon symbol='laptop' />} text='High-speed WiFi' />
-          <AmenitiesItem icon={<Icon symbol='fireplace' />} text='Fireplace' />
-          <AmenitiesItem icon={<Icon symbol='washer' />} text='Washer & Dryer' />
-          <AmenitiesItem icon={<Icon symbol='bike' />} text='Bikes' />
-          <AmenitiesItem icon={<Icon symbol='kayak' />} text='Kayaks' />
-        </AmenitiesGridFeatured>
-
-        {/* <AmenitiesGrid>
-          <Label>Basic</Label>
-          <AmenityText>Air conditioning</AmenityText>
-          <AmenityText>Washer and dryer</AmenityText>
-          <AmenityText>Essentials</AmenityText>
-          <AmenityText>Beach Essentials</AmenityText>
-          <AmenityText>Indoor fireplace</AmenityText>
-          <AmenityText>Indoor fireplace</AmenityText>
-        </AmenitiesGrid> */}
-
-        <Title>Sleeping Arrangements</Title>
-        <BedroomLayout>
-          <SleepingLayout />
-        </BedroomLayout>
-      </AmenitiesBody>
-    </Main>
-
-    </Layout>
-  )
-}
-
-export default Amenities
-// 

@@ -7,7 +7,7 @@ import { IoIosMenu } from "react-icons/io";
 const HeaderContainer = styled.div`
   width: 100%;
   background-color: ${props => props.theme.bg.primary};
-  border-bottom: 1px solid ${props => props.theme.border.secondary};
+  /* border-bottom: 1px solid ${props => props.theme.border.secondary}; */
 `
 
 const Navbar = styled.nav`
@@ -28,12 +28,30 @@ const Navbar = styled.nav`
     li{
       margin: 0 10px 0 0;
       a {
+        padding: 10px;
         color: ${props => props.theme.text.secondary};
 
         &:hover {
           color: ${props => props.theme.text.primary};
+          border-bottom: 2px solid ${props => props.theme.bg.lightBlue};
         }
       }
+
+      &.reserve {
+        a{
+          /* border: 2px solid ${props => props.theme.colors.blue}; */
+          background-color: ${props => props.theme.colors.blue};
+          color: white;
+          border-radius: 5px;
+        }
+      }
+
+      &.current{
+        a {
+          border-bottom: 2px solid ${props => props.theme.colors.blue};
+        }
+      }
+
     }
   }
 
@@ -90,35 +108,45 @@ const Title = styled.div`
 `
 
 const Dropdown = styled.div`
-ul{
-  li {
-    margin: 10px 0 0 0;
+  ul{
+    li {
+      margin: 15px 0;
+
+      &.current{
+          a {
+            border-bottom: 0;
+          }
+    }
   }
-}
 `
 
-const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle}) => {
+const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage}) => {
   const [dropdownShown, setDropdownShown] = useState(false)
   console.log(dropdownShown)
 
   const themeContext = useContext(ThemeContext);
   console.log(themeContext)
 
+  console.log(currentPage)
+
   const linksList = (<ul>
-    <li>
+    <li className={currentPage == 'index' && 'current'}>
+      <Link to='/'>Home</Link>
+    </li>
+    <li className={currentPage == 'photos' && 'current'}>
       <Link to='/photos'>Photos</Link>
     </li>
-    <li>
+    <li className={currentPage == 'amenities' && 'current'}>
       <Link to='/amenities'>Amenities</Link>
     </li>
-    <li>
+    <li className={currentPage == 'location' && 'current'}>
       <Link to='/location'>Location</Link>
     </li>
-    <li>
+    <li className={currentPage == 'blog' && 'current'}>
       <Link to='/blog'>Blog</Link>
     </li>
-    <li>
-      <Link to='/reserve'>Reservations</Link>
+    <li className={` reserve ${currentPage == 'book' && 'current'}`}>
+      <Link to='/reserve'>Reserve</Link>
     </li>
   </ul>)
 

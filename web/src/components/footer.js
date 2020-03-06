@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {Link} from 'gatsby'
 import Main from './main'
 import Logo from '../assets/logo-2.svg'
-import { FaInstagram } from "react-icons/fa";
+import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 const FooterContainer = styled.div`
   box-sizing: border-box;
@@ -17,7 +17,7 @@ const FooterGrid = styled.div`
   max-width: ${props => props.theme.contentWidth};
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 40px;
+  grid-template-columns: 1fr 40px 40px;
   align-items: center;
 
   a{
@@ -89,6 +89,9 @@ const Footer = ({ siteTitle }) => {
 
         <a href='https://www.instagram.com/pointbeachhouse/' target='_blank'>
           <FaInstagram size='20px' />
+        </a>
+        <a href='https://www.facebook.com/pointbeachhousedoorcounty/' target='_blank'>
+          <FaFacebook size='20px' />
         </a>
         {linksList}
 

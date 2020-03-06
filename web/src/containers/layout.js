@@ -36,6 +36,7 @@ function LayoutContainer (props) {
             onHideNav={handleHideNav}
             onShowNav={handleShowNav}
             subtitle={data.site.subtitle}
+            currentPage={props.currentPage}
           />
         )
       }}

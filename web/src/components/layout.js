@@ -11,8 +11,10 @@ import "../styles/index.scss"
 const Content = styled.main`
   /* max-width: ${props => props.theme.contentWidth}; */
   margin: auto;
-  background-color: ${props => props.theme.bg.secondary};
+  background-color: ${props => props.theme.bg.primary};
+  /* background-color: ${props => props.theme.bg.secondary}; */
   color: ${props => props.theme.text.primary};
+  min-height: calc(100vh - 80px - 235px);
 
   a{
     color: ${props => props.theme.text.primary};
@@ -20,10 +22,10 @@ const Content = styled.main`
   }
 `
 
-const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle, subtitle}) => (
+const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage}) => (
   <ThemeProvider theme={theme} >
     <>
-      <Header siteTitle={siteTitle} subtitle={subtitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} />
+      <Header siteTitle={siteTitle} subtitle={subtitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} currentPage={currentPage} />
       <Content>
         {children}
       </Content>

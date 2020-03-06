@@ -99,6 +99,36 @@ export default {
           ]
         }
       ]
+    },
+    {
+      name: 'reviews',
+      type: 'array',
+      title: 'Reviews',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {
+              type: 'review'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: 'amenityGroups',
+      type: 'array',
+      title: 'Amenity Groups',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {
+              type: 'amenityGroup'
+            }
+          ]
+        }
+      ]
     }
   ]
 }

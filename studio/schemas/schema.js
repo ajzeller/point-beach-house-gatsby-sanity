@@ -6,6 +6,9 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 // document schemas
 import author from './documents/author'
+import review from './documents/review'
+import amenity from './documents/amenity'
+import amenityGroup from './documents/amenityGroup'
 import category from './documents/category'
 import post from './documents/post'
 import siteSettings from './documents/siteSettings'
@@ -31,6 +34,9 @@ export default createSchema({
     post,
     category,
     author,
+    amenity,
+    amenityGroup,
+    review,
     GalleryImage,
     mainImage,
     authorReference,

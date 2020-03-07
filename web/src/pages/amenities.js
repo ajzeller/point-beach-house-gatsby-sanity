@@ -14,7 +14,7 @@ import Layout from '../containers/layout'
 import styled from 'styled-components'
 import Main from '../components/main'
 import SleepingLayout from '../assets/svg/sleeping_layout.svg'
-import { Panel, AmenitiesItem, Label } from '../components/indexBody'
+import { AmenitiesItem, Label } from '../components/indexBody'
 import Icon from '../components/icon'
 
 const BedroomLayout = styled.div`
@@ -38,7 +38,7 @@ const AmenitiesBody = styled.div`
     }
 `
 
-const AmenitiesSection = styled(Panel)`
+const AmenitiesSection = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   border-radius: 5px;

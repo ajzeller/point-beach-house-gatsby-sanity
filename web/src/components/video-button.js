@@ -9,7 +9,7 @@ export const Button = styled.button`
   display: flex;
   /* background-color: ${props => props.theme.colors.blue}; */
   /* color: white; */
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   padding: 10px 15px;
   align-items: center;

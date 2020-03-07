@@ -15,6 +15,7 @@ const theme = {
   },
   colors: {
     blue: '#479CFF',
+    // blue: '#006AE5',
     darkBlue: '#003F88',
     orange: '#F5A623',
     grey: '#858585'
@@ -23,3 +24,4 @@ const theme = {
 }
 
 export default theme
+

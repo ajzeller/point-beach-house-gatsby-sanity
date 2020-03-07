@@ -10,33 +10,7 @@ import VideoButton, {ButtonPrimary} from './video-button'
 import Icon from './icon'
 import Main from './main'
 
-export const Panel = styled.div`
-  /* background-color: ${props => props.theme.bg.primary}; */
-  /* box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15); */
-  border-radius: 5px;
-  /* padding: 0 16px; */
-
-/* 
-  @media (min-width: 600px) {
-    padding: 0px;
-  } */
-
-  /* border: 1px solid ${props => props.theme.border.secondary}; */
-`
-
-const HeroTitle = styled.h2`
-  margin: 20px auto;
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-`
-
 const StatsGrid = styled.div`
-  /* background-color: ${props => props.theme.bg.primary}; */
-  /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15); */
-  /* padding: 10px; */
-  /* margin: 20px 0 10px 0; */
-  /* border-radius: 5px; */
   display: grid;
   grid-template-columns: auto;
   justify-items: left;
@@ -48,11 +22,9 @@ const StatsGrid = styled.div`
   
 
   @media (min-width: 600px) {
-    /* padding: 10px 20px 10px 10px; */
     padding: 0px 20px 0px 0px;
-    /* grid-template-columns: repeat(4, auto); */
     border-right: 1px solid ${props => props.theme.border.secondary};
-    }
+  }
 `
 
 const AmenitiesItemGrid = styled.div`
@@ -69,38 +41,14 @@ const AmenitiesItemGrid = styled.div`
 `
 
 const BodyGrid = styled.div`
-  margin: 0px 0 0px 0;
-  /* padding: 0 0 40px 0; */
-  /* margin: 10px 0 10px 0; */
+  margin: 0;
   display: grid;
   grid-template-columns: auto;
   align-items: center;
   justify-items: center;
-
-  /* background-color: #f7fbff; */
-  /* grid-gap: 10px; */
-
-  /* @media (min-width: 600px) {
-    grid-template-columns: auto;
-    } */
 `
 
-const SummaryGrid = styled(Panel)`
-  margin: 40px 0;
-  padding: 0 16px;
-  /* margin: 10px 0 10px 0; */
-  display: grid;
-  grid-template-columns: auto;
-  align-items: start;
-  grid-gap: 40px;
 
-  @media (min-width: 600px) {
-    grid-template-columns: auto auto;
-    grid-gap: 20px;
-    margin: 40px 0;
-    padding: 0px;
-    }
-`
 
 export const AmenitiesItem = ({icon, text}) => (
   <AmenitiesItemGrid>
@@ -130,13 +78,14 @@ const ButtonGrid = styled.div`
 
 const SectionGrid = styled.div`
   display: grid;
-  margin: 40px 0 40px 0;
+  margin: 40px 0;
+  padding: 0 16px;
   grid-template-columns: 1fr;
-  grid-gap: 20px;
+  align-content: start;
+
+  grid-gap: 40px;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 16px;
-  align-content: start;
 
   p {
     margin: 5px 0 0 0;
@@ -147,11 +96,18 @@ const SectionGrid = styled.div`
     grid-gap: 20px;
   }
 
+  &.summary {
+    grid-gap: 40px;
+
+    @media (min-width: 600px) {
+      grid-template-columns: auto auto;
+      grid-gap: 20px;
+    }
+  }
+
   @media (min-width: 600px) {
-    /* margin: 40px 0 0 0; */
     grid-template-columns: 1fr 1fr;
     grid-gap: 40px;
-    padding: 0;
 
     &.amenities{
       grid-template-columns: auto 1fr;
@@ -160,7 +116,7 @@ const SectionGrid = styled.div`
   }
 `
 
-export const AmenitiesGrid = styled(Panel)`
+export const AmenitiesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   justify-items: left;
@@ -216,12 +172,12 @@ const ImageGalleryContainer = styled.div`
   }
 `
 
-const ContainerBodyWidth = styled.div`
+export const ContainerBodyWidth = styled.div`
   max-width: ${props => props.theme.contentWidth};
   margin: 0px auto;
 `
 
-const ContainerFullWidth = styled.div`
+export const ContainerFullWidth = styled.div`
   width: 100%;
 
   &.secondary{
@@ -236,7 +192,6 @@ const ContainerFullWidth = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin: 0 auto;
-  /* margin: 75px auto 30px; */
 `
 
 const Hero = styled.div`
@@ -311,7 +266,7 @@ const ReviewNameDate = styled.div`
   }
 
   .date{
-    color: ${props => props.theme.text.tertiary}
+    color: ${props => props.theme.text.secondary}
   }
 `
 
@@ -358,7 +313,7 @@ const IndexBody = ({ data }) => {
       <BodyGrid>
 
         <ContainerBodyWidth>
-          <SummaryGrid>
+          <SectionGrid className="summary">
             <StatsGrid>
               <AmenitiesItem icon={<Icon symbol='house' />} text='Entire home &middot; 2500 sq ft' />
               <AmenitiesItem icon={<Icon symbol='people' />} text='10 Guests' />
@@ -370,7 +325,7 @@ const IndexBody = ({ data }) => {
               <Label>Summary</Label>
               <p>{data.site.summaryText}</p>
             </Subsection>
-          </SummaryGrid>
+          </SectionGrid>
         </ContainerBodyWidth>
           
         <ContainerFullWidth className='secondary'>

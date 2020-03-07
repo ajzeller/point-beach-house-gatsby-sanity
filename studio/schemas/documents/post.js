@@ -33,6 +33,16 @@ export default {
       title: 'Main image'
     },
     {
+      name: 'postImage',
+      title: 'Blog post image',
+      type: 'reference',
+      to: [
+        {
+          type: 'galleryImage'
+        }
+      ]
+    },
+    {
       name: 'excerpt',
       type: 'excerptPortableText',
       title: 'Excerpt',

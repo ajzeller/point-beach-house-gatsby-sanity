@@ -43,6 +43,7 @@ const Navbar = styled.nav`
           background-color: ${props => props.theme.colors.blue};
           color: white;
           border-radius: 5px;
+          font-weight: 700;
         }
       }
 

@@ -99,7 +99,6 @@ const Blog = props => {
         keywords={site.keywords}
       />
       <Container>
-        <h2>Blog</h2>
         <h1 hidden>Welcome to {site.title}</h1>
         {postNodes && (
           <BlogPostPreviewList

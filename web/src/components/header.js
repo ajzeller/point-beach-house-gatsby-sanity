@@ -132,22 +132,22 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage
   console.log(currentPage)
 
   const linksList = (<ul>
-    <li className={currentPage == 'index' && 'current'}>
+    <li className={currentPage == 'index' ? 'current': ''}>
       <Link to='/'>Home</Link>
     </li>
-    <li className={currentPage == 'photos' && 'current'}>
+    <li className={currentPage == 'photos' ? 'current' : ''}>
       <Link to='/photos'>Photos</Link>
     </li>
-    <li className={currentPage == 'amenities' && 'current'}>
+    <li className={currentPage == 'amenities' ? 'current' : ''}>
       <Link to='/amenities'>Amenities</Link>
     </li>
     {/* <li className={currentPage == 'location' && 'current'}>
       <Link to='/location'>Location</Link>
     </li> */}
-    <li className={currentPage == 'blog' && 'current'}>
+    <li className={currentPage == 'blog' ? 'current' : ''}>
       <Link to='/blog'>Blog</Link>
     </li>
-    <li className={` reserve ${currentPage == 'book' && 'current'}`}>
+    <li className={` reserve ${currentPage == 'book' ? 'current' : ''}`}>
       <Link to='/reserve'>Reserve</Link>
     </li>
   </ul>)

@@ -76,7 +76,7 @@ const Footer = ({ siteTitle }) => {
       <Link to='/blog'>Blog</Link>
     </li>
     <li>
-      <Link to='/reserve'>Reservations</Link>
+      <Link to='/reserve'>Reserve</Link>
     </li>
   </ul>)
 

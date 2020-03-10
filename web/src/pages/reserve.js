@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {graphql} from 'gatsby'
 import Image from "gatsby-image"
 import {
   mapEdgesToNodes,
   filterOutDocsWithoutSlugs,
-  filterOutDocsPublishedInTheFuture
+  filterOutDocsPublishedInTheFuture,
+  useScript
 } from '../lib/helpers'
 import BlogPostPreviewList from '../components/blog-post-preview-list'
 import Container from '../components/container'
@@ -15,92 +16,75 @@ import styled from 'styled-components'
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
-import IndexBody from '../components/indexBody'
+import { ContainerBodyWidth, ContainerFullWidth } from '../components/indexBody'
 import VideoButton from '../components/video-button'
 import Sunset from '../assets/svg/sunset_graphic.svg'
 
-const ImageGalleryContainer = styled.div`
-  /* max-width: 1200px; */
-  /* margin: 0 auto; */
-
-  .image-gallery-image {
-    height: 100vw;
-    object-fit: cover;
-
-  }
-
-  .image-gallery-thumbnail-image {
-    object-fit: cover;
-    height: 50px;
-  }
+const CalendarGrid = styled.div`
+  display: grid;
+  margin: 50px 0;
+  grid-template-columns: 1fr;
+  align-items: center;
 
   @media (min-width: 600px) {
-    .image-gallery-image{
-      height: 700px;
-    }
+    grid-template-columns: 350px 1fr;
   }
+`
+
+const FullWidthBackground = styled(ContainerFullWidth)`
+  background-color: ${props => props.theme.bg.secondary};
+  border-top: 1px solid ${props => props.theme.border.primary};
 `
 
 const HeroImage = styled(Image)`
+  display: none;
+  height: 400px;
+
+  @media (min-width: 600px) {
+    display: block;
+  }
+`
+
+const CalendarWidget = styled.iframe`
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 300px;
+  height: 321px;
+  border: 0;
+  /* border: 1px solid ${props => props.theme.border.primary}; */
+  padding: 20px;
+  border-radius: 5px;
+`
+
+const FormWidget = styled.iframe`
+  /* display: block; */
+  width: 100%;
+  border: 0px;
+  height: 900px;
+  /* border: 1px solid ${props => props.theme.border.primary}; */
+  /* background-color: ${props => props.theme.bg.secondary}; */
+  padding: 20px;
+  /* border-radius: 5px; */
+  box-sizing: border-box;
+  /* overflow-y: scroll; */
+`
+
+const FormContainer = styled.div`
+  margin: 0 auto;
+  max-width: 1000px;
   height: 600px;
-
-  @media (max-width: 600px) {
-    height: 300px;
-  }
-`
-
-const HeroTitle = styled.div`
-  color: white;
-  text-align: center;
-  /* margin: 20px auto; */
-  /* padding: 0 10px; */
-  /* text-align: center; */
+  overflow-y: scroll;
+  border: 1px solid ${props => props.theme.border.primary};
+  background-color: ${props => props.theme.bg.secondary};
+  padding: 20px;
+  border-radius: 5px;
   box-sizing: border-box;
-  width: 100%;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
-
-  h1{
-    font-size: 2.4rem;
-    margin: 0 auto 10px auto;
-  }
-
-  h2{
-    font-size: 1rem;
-    /* text-transform: uppercase; */
-    margin: 0 auto;
-  }
-  /* left: 16px; */
 `
 
-const HeroContainer = styled.div`
-  position: relative;
-  
-  svg{
-    width: 100%;
-  }
-`
-
-const BlogPreviewContainer = styled.div`
-  border-top: 1px solid ${props => props.theme.border.secondary};
-  background-color: ${props => props.theme.bg.primary};
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0px auto 0 auto;
-  padding: 0 10px;
-`
-
-const Title = styled.h1`
+const Title = styled.h2`
   text-align: center;
-  margin: 75px auto 30px;
-`
-
-const Hero = styled.div`
-  display: grid;
-  background-color: ${props => props.theme.bg.primary};
+  /* color: ${props => props.theme.colors.blue}; */
 `
 
 const Reserve = props => {
@@ -140,38 +124,25 @@ const Reserve = props => {
         description={site.description}
         keywords={site.keywords}
       />
+      <ContainerBodyWidth>
+        <CalendarGrid>
+          <div>
+            <Title>Availability</Title>
+            <CalendarWidget src="https://secure.ownerreservations.com/widgets/f68fb359a8de404a83caf96e0a236d55?seq=0&amp;propertyKey=cdfd55b69b49464199cb424075a49f4b" frameborder="0" scrolling="no" seamless="seamless" allowtransparency="true" ></CalendarWidget>
+          </div>
 
-      {/* <Hero>
-        <Title>{data.site.heroTitle}</Title>
-      </Hero>
+          <HeroImage fluid={data.site.heroImage.image.asset.fluid} alt={data.site.heroImage.image.alt} />
+        </CalendarGrid>
+      </ContainerBodyWidth>
 
-      <HeroContainer>
-        <HeroImage fluid={data.site.heroImage.asset.fluid} />
+      <FullWidthBackground>
+        <ContainerBodyWidth>
+          <Title>Make a reservation</Title>
+          <FormWidget src="https://secure.ownerreservations.com/widgets/1fa1c03d88ba434aafd6185297086259?seq=0&amp;propertyKey=cdfd55b69b49464199cb424075a49f4b" scrolling="yes" frameborder="0" seamless="seamless" allowtransparency="true" ></FormWidget>
+        </ContainerBodyWidth>
+      </FullWidthBackground>
 
-      </HeroContainer> */}
-      
-        <IndexBody 
-          data={data}
-          heroTitle={data.site.heroTitle} 
-          summaryText={data.site.summaryText} 
-          secondImage={data.site.secondImage.asset.fluid} 
-          thirdImage={data.site.thirdImage.asset.fluid} 
-          fourthImage={data.site.fourthImage.asset.fluid} 
-        />
 
-        <BlogPreviewContainer>
-          <Main>
-
-            <h1 hidden>Welcome to {site.title}</h1>
-            {postNodes && (
-              <BlogPostPreviewList
-              title='Latest blog posts'
-              nodes={postNodes}
-              browseMoreHref='/archive/'
-              />
-              )}
-          </Main>
-        </BlogPreviewContainer>
     </Layout>
   )
 }

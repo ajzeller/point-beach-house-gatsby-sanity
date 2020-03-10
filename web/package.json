@@ -38,6 +38,7 @@
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.7",
     "gatsby-image": "^2.2.42",
+    "gatsby-plugin-load-script": "^1.0.6",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sass": "^2.1.29",
     "gatsby-plugin-sharp": "^2.4.5",

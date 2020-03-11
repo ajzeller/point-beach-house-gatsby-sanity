@@ -134,6 +134,21 @@ export default {
           ]
         }
       ]
+    },
+    {
+      name: 'faqGroup',
+      type: 'array',
+      title: 'FAQ items',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {
+              type: 'faqItem'
+            }
+          ]
+        }
+      ]
     }
   ]
 }

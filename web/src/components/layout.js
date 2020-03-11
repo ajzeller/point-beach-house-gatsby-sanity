@@ -10,7 +10,7 @@ import "../styles/index.scss"
 
 const Content = styled.main`
   /* max-width: ${props => props.theme.contentWidth}; */
-  margin: auto;
+  margin: 80px auto 0 auto;
   background-color: ${props => props.theme.bg.primary};
   /* background-color: ${props => props.theme.bg.secondary}; */
   color: ${props => props.theme.text.primary};

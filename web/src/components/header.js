@@ -2,12 +2,61 @@ import {Link} from 'gatsby'
 import React, { useContext, useState } from 'react'
 import styled, {ThemeContext} from 'styled-components'
 import Logo from '../assets/logo-2.svg'
-import { IoIosMenu } from "react-icons/io";
+import { IoIosMenu, IoMdClose } from "react-icons/io";
 
 const HeaderContainer = styled.div`
+  z-index: 1000;
+  position: fixed;
+  top: 0;
   width: 100%;
   background-color: ${props => props.theme.bg.primary};
   /* border-bottom: 1px solid ${props => props.theme.border.secondary}; */
+
+  ul{
+    /* display: flex; */
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+
+    li{
+      margin: 0 10px 0 0;
+      a {
+        padding: 10px;
+        color: ${props => props.theme.text.secondary};
+
+        &:hover {
+          color: ${props => props.theme.text.primary};
+          border-bottom: 2px solid ${props => props.theme.bg.lightBlue};
+        }
+      }
+
+      &.reserve {
+        a{
+          /* border: 2px solid ${props => props.theme.colors.blue}; */
+          background-color: ${props => props.theme.colors.blue};
+          color: white;
+          border-radius: 5px;
+          font-weight: 700;
+
+          &:hover {
+            background-color: ${props => props.theme.buttons.blueHover};
+          }
+        }
+      }
+
+      &.current{
+        a {
+          border-bottom: 2px solid ${props => props.theme.colors.blue};
+        }
+      }
+
+    }
+  }
+
+
+  a{
+    text-decoration: none;
+  }
 `
 
 const Navbar = styled.nav`
@@ -78,13 +127,13 @@ const Menu = styled.div`
     vertical-align: bottom;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     ul {
       display: none;
     }    
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 1000px) {
     svg {
       display: none;
     }    
@@ -109,9 +158,19 @@ const Title = styled.div`
 `
 
 const Dropdown = styled.div`
+  position: fixed;
+  top: 80px;
+  height: calc(100vh - 80px);
+  width: 100vw;
+  background-color: ${props => props.theme.bg.primary};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   ul{
     li {
-      margin: 15px 0;
+      text-align: center;
+      margin: 25px 0;
 
       &.current{
           a {
@@ -141,9 +200,9 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage
     <li className={currentPage == 'amenities' ? 'current' : ''}>
       <Link to='/amenities'>Amenities</Link>
     </li>
-    {/* <li className={currentPage == 'location' && 'current'}>
-      <Link to='/location'>Location</Link>
-    </li> */}
+    <li className={currentPage == 'faq' && 'current'}>
+      <Link to='/faq'>FAQ</Link>
+    </li>
     <li className={currentPage == 'blog' ? 'current' : ''}>
       <Link to='/blog'>Blog</Link>
     </li>
@@ -168,14 +227,15 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage
           {/* <button onClick={ () => setDropdownShown(prev => !prev)} style={{padding: 0}}>
             <Icon symbol='menu' />
           </button> */}
-          <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} />
+          {dropdownShown ? <IoMdClose size='30px' onClick={ () => setDropdownShown(prev => !prev)} /> : <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} />}
+          {/* <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} /> */}
           {linksList}
         </Menu>
 
+      </Navbar>
         {dropdownShown && (<><span></span><Dropdown>
           {linksList}
           </Dropdown></>)}
-      </Navbar>
     </HeaderContainer>
   )
 }

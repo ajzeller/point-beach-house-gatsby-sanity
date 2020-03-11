@@ -10,6 +10,7 @@ import review from './documents/review'
 import amenity from './documents/amenity'
 import amenityGroup from './documents/amenityGroup'
 import category from './documents/category'
+import faqItem from './documents/faqItem'
 import post from './documents/post'
 import siteSettings from './documents/siteSettings'
 import GalleryImage from './documents/galleryImage'
@@ -36,6 +37,7 @@ export default createSchema({
     author,
     amenity,
     amenityGroup,
+    faqItem,
     review,
     GalleryImage,
     mainImage,

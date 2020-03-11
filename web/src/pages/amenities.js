@@ -48,11 +48,10 @@ const AmenitiesSection = styled.div`
   align-content: start;
   grid-gap: 12px;
 
-  /* &.featured{
-    @media (min-width: 600px) {
-      grid-template-columns: 1fr 1fr;
-    }
-  } */
+  &.featured{
+    background-color: ${props => props.theme.bg.secondary};
+    border: 1px solid ${props => props.theme.colors.blue};
+  }
 `
 
 const AmenitiesGrid = styled.div`

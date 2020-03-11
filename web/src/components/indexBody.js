@@ -198,7 +198,8 @@ const Hero = styled.div`
   display: grid;
   grid-gap: 30px;
   background-color: ${props => props.theme.bg.primary};
-  margin: 30px auto 30px;
+  margin: 0px auto 30px;
+  padding: 30px 0 0 0;
 
   @media (min-width: 600px) {
     margin: 125px auto 30px;
@@ -300,9 +301,11 @@ const IndexBody = ({ data }) => {
 
         <ButtonGrid>  
           <VideoButton />
-          <ButtonPrimary>
-            Book your stay
-          </ButtonPrimary>
+          <Link to='/reserve'>
+            <ButtonPrimary>
+              Book your stay 
+            </ButtonPrimary>
+          </Link>
         </ButtonGrid>
       </Hero>
 

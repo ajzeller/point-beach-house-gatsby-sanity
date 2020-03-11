@@ -20,6 +20,10 @@ const theme = {
     orange: '#F5A623',
     grey: '#858585'
   },
+  buttons: {
+    blueHover: '#4091EE',
+    whiteHover: '#F7FBFF'
+  },
   contentWidth: '1200px'
 }
 

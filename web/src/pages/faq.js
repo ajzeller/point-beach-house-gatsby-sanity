@@ -1,93 +1,40 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {graphql} from 'gatsby'
 import Image from "gatsby-image"
 import {
   mapEdgesToNodes,
   filterOutDocsWithoutSlugs,
-  filterOutDocsPublishedInTheFuture,
-  useScript
+  filterOutDocsPublishedInTheFuture
 } from '../lib/helpers'
 import BlogPostPreviewList from '../components/blog-post-preview-list'
-import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import styled from 'styled-components'
-import ImageGallery from 'react-image-gallery';
-import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
+import IndexBody from '../components/indexBody'
 import { ContainerBodyWidth, ContainerFullWidth } from '../components/indexBody'
-import VideoButton from '../components/video-button'
-import Sunset from '../assets/svg/sunset_graphic.svg'
+import PortableText from '../components/portableText'
 
-const CalendarGrid = styled.div`
-  display: grid;
-  margin: 50px 0;
-  grid-template-columns: 1fr;
-  align-items: center;
 
-  @media (min-width: 600px) {
-    grid-template-columns: 350px 1fr;
-  }
-`
-
-const FullWidthBackground = styled(ContainerFullWidth)`
-  background-color: ${props => props.theme.bg.secondary};
-  border-top: 1px solid ${props => props.theme.border.primary};
-`
-
-const HeroImage = styled(Image)`
-  display: none;
-  height: 400px;
-
-  @media (min-width: 600px) {
-    display: block;
-  }
-`
-
-const CalendarWidget = styled.iframe`
-  display: block;
-  margin: 0 auto;
+const BlogPreviewContainer = styled.div`
+  border-top: 1px solid ${props => props.theme.border.secondary};
+  background-color: ${props => props.theme.bg.primary};
   width: 100%;
-  max-width: 300px;
-  height: 321px;
-  border: 0;
-  /* border: 1px solid ${props => props.theme.border.primary}; */
-  padding: 20px;
-  border-radius: 5px;
-`
-
-const FormWidget = styled.iframe`
-  /* display: block; */
-  width: 100%;
-  margin: 0 auto;
-  /* max-width: 600px; */
-  border: 0px;
-  height: 1050px;
-  /* border: 1px solid ${props => props.theme.border.primary}; */
-  /* background-color: ${props => props.theme.bg.secondary}; */
-  padding: 20px;
-  /* border-radius: 5px; */
   box-sizing: border-box;
-  /* overflow-y: scroll; */
-
-  @media (min-width: 600px) {
-    height: 900px;
-    padding: 0px;
-  }
+  margin: 0px auto 0 auto;
+  padding: 0 10px;
 `
 
-const FormContainer = styled.div`
-  margin: 0 auto;
-  max-width: 600px;
+const Line = styled.hr`
+  border-top: 1px solid ${props => props.theme.border.secondary};
 `
 
-const Title = styled.h2`
-  text-align: center;
-  /* color: ${props => props.theme.colors.blue}; */
+const FaqBody = styled.div`
+  padding: 0 16px;
 `
 
-const Reserve = props => {
+const faqPage = props => {
   const {data, errors} = props
   console.log(data)
 
@@ -112,46 +59,30 @@ const Reserve = props => {
     )
   }
 
-  const images = data.site.gallery.map(item => ({
-    original: item.image.asset.fluid.src,
-    thumbnail: item.image.asset.fluid.src
-  }))
-
   return (
-    <Layout currentPage='reserve'>
+    <Layout currentPage='faq'>
       <SEO
         title={site.title}
         description={site.description}
         keywords={site.keywords}
       />
       <ContainerBodyWidth>
-        <CalendarGrid>
-          <div>
-            <Title>Availability</Title>
-            <CalendarWidget src="https://secure.ownerreservations.com/widgets/f68fb359a8de404a83caf96e0a236d55?seq=0&amp;propertyKey=cdfd55b69b49464199cb424075a49f4b" frameborder="0" scrolling="no" seamless="seamless" allowtransparency="true" ></CalendarWidget>
-          </div>
-
-          <HeroImage fluid={data.site.heroImage.image.asset.fluid} alt={data.site.heroImage.image.alt} />
-        </CalendarGrid>
+        <FaqBody>
+          <h1>Frequently Asked Questions</h1>
+          {data.site.faqItems.map((item, i) => (
+            <>
+              <h3>{item.question}</h3>
+              {item._rawBody && <PortableText blocks={item._rawBody} />}
+              { i < data.site.faqItems.length-1 && <Line /> }
+            </>
+          ))}
+        </FaqBody>
       </ContainerBodyWidth>
-
-      <FullWidthBackground>
-        <ContainerBodyWidth>
-          <FormContainer>
-
-            <Title>Make a reservation</Title>
-            <p>Please tell us a bit about the details of your stay and we'll get back to you with a confirmation. You don't have to pay yet.</p>
-            <FormWidget src="https://secure.ownerreservations.com/widgets/1fa1c03d88ba434aafd6185297086259?seq=0&amp;propertyKey=cdfd55b69b49464199cb424075a49f4b" scrolling="yes" frameborder="0" seamless="seamless" allowtransparency="true" ></FormWidget>
-          </FormContainer>
-        </ContainerBodyWidth>
-      </FullWidthBackground>
-
-
     </Layout>
   )
 }
 
-export default Reserve
+export default faqPage
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -176,7 +107,7 @@ export const query = graphql`
     }
   }
 
-  query ReserveQuery {
+  query faqQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       subtitle
@@ -224,6 +155,7 @@ export const query = graphql`
               ...GatsbySanityImageFluid
             }
           }
+          alt
         }
       }
       reviews: reviews {
@@ -243,6 +175,10 @@ export const query = graphql`
             }
           }
         }
+      }
+      faqItems: faqGroup {
+        question
+        _rawBody(resolveReferences: {maxDepth: 5})
       }
     }
     posts: allSanityPost(

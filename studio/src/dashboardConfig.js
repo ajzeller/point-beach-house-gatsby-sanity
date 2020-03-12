@@ -33,7 +33,7 @@ export default {
             value: 'https://github.com/ajzeller/point-beach-house-gatsby-sanity',
             category: 'Code'
           },
-          { title: 'Frontend', value: 'https://visiteggharbor.netlify.com', category: 'apps' }
+          { title: 'Frontend', value: 'https://visiteggharbor.com', category: 'apps' }
         ]
       }
     },

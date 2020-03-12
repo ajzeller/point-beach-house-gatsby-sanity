@@ -15,7 +15,7 @@ import Main from '../components/main'
 import IndexBody from '../components/indexBody'
 
 const BlogPreviewContainer = styled.div`
-  border-top: 1px solid ${props => props.theme.border.secondary};
+  /* border-top: 1px solid ${props => props.theme.border.secondary}; */
   background-color: ${props => props.theme.bg.primary};
   width: 100%;
   box-sizing: border-box;
@@ -48,6 +48,8 @@ const IndexPage = props => {
     )
   }
 
+  console.log(process.env.API_KEY_MAPS)
+
   return (
     <Layout currentPage='index'>
       <SEO
@@ -67,7 +69,6 @@ const IndexPage = props => {
 
         <BlogPreviewContainer>
           <Main>
-
             <h1 hidden>Welcome to {site.title}</h1>
             {postNodes && (
               <BlogPostPreviewList

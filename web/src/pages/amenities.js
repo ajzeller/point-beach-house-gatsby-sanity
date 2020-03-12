@@ -30,12 +30,20 @@ const AmenitiesBody = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
-  margin: 10px 0 0px 0;
+  margin: 10px auto 0px auto;
   padding: 0 0 20px 0;
+  align-items: start;
 
-  @media (min-width: 600px) {
+  @media (min-width: 1000px) {
       grid-template-columns: repeat(2, 1fr);
-    }
+    /* grid-template-columns: 1fr; */
+  }
+`
+
+const Column = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
 `
 
 const AmenitiesSection = styled.div`
@@ -125,54 +133,57 @@ const Amenities = props => {
 
     <Main>
       <AmenitiesBody>
+        <Column>
+          <Sleeping>
+            <Label>Sleeping Arrangements</Label>
+            <BedroomLayout>
+              <SleepingLayout />
+            </BedroomLayout>
+          </Sleeping>
 
-        <Sleeping>
-          <Label>Sleeping Arrangements</Label>
-          <BedroomLayout>
-            <SleepingLayout />
-          </BedroomLayout>
-        </Sleeping>
-
-        <AmenitiesSection>
-          <Label>Overview</Label>
-          <AmenitiesGrid>
-            <AmenitiesItem icon={<Icon symbol='house' />} text='Entire home &middot; 2500 sq ft' />
-            <AmenitiesItem icon={<Icon symbol='people' />} text='10 Guests' />
-            <AmenitiesItem icon={<Icon symbol='bed' />} text='4 Bedrooms' />
-            <AmenitiesItem icon={<Icon symbol='bath' />} text='2.5 Bathrooms' />
-          </AmenitiesGrid>
-        </AmenitiesSection>
-
-
-
-        <AmenitiesSection className='featured'>
-          <LabelFeatured>Featured</LabelFeatured>
-          <AmenitiesGrid>
-            <AmenitiesItem icon={<Icon symbol='sunset' />} text='Waterfront view with dock' />
-            <AmenitiesItem icon={<Icon symbol='hotpot' />} text='Modern fully-equipped kitchen' />
-            <AmenitiesItem icon={<Icon symbol='snowflake' />} text='A/C' />
-            <AmenitiesItem icon={<Icon symbol='laptop' />} text='High-speed WiFi' />
-            <AmenitiesItem icon={<Icon symbol='fireplace' />} text='Fireplace' />
-            <AmenitiesItem icon={<Icon symbol='washer' />} text='Washer & Dryer' />
-            <AmenitiesItem icon={<Icon symbol='bike' />} text='Bikes' />
-            <AmenitiesItem icon={<Icon symbol='kayak' />} text='Kayaks' />
-          </AmenitiesGrid>
-        </AmenitiesSection>
-
-        {data.site.amenities.map(item => (
-          <AmenitiesSection key={item.name}>
-            <Label>{item.name}</Label>
+          <AmenitiesSection>
+            <Label>Overview</Label>
             <AmenitiesGrid>
-              {item.amenities.map(amenity => (
-                <AmenityItemGrid key={amenity.name}>
-                  <AmenityName>{amenity.name}</AmenityName>
-                  <AmenityDescription>{amenity.description}</AmenityDescription>
-                </AmenityItemGrid>
-              ))}
+              <AmenitiesItem icon={<Icon symbol='house' />} text='Entire home &middot; 2500 sq ft' />
+              <AmenitiesItem icon={<Icon symbol='people' />} text='10 Guests' />
+              <AmenitiesItem icon={<Icon symbol='bed' />} text='4 Bedrooms' />
+              <AmenitiesItem icon={<Icon symbol='bath' />} text='2.5 Bathrooms' />
             </AmenitiesGrid>
-
           </AmenitiesSection>
-        ))}
+
+
+
+          <AmenitiesSection className='featured'>
+            <LabelFeatured>Featured</LabelFeatured>
+            <AmenitiesGrid>
+              <AmenitiesItem icon={<Icon symbol='sunset' />} text='Waterfront view with dock' />
+              <AmenitiesItem icon={<Icon symbol='hotpot' />} text='Modern fully-equipped kitchen' />
+              <AmenitiesItem icon={<Icon symbol='snowflake' />} text='A/C' />
+              <AmenitiesItem icon={<Icon symbol='laptop' />} text='High-speed WiFi' />
+              <AmenitiesItem icon={<Icon symbol='fireplace' />} text='Fireplace' />
+              <AmenitiesItem icon={<Icon symbol='washer' />} text='Washer & Dryer' />
+              <AmenitiesItem icon={<Icon symbol='bike' />} text='Bikes' />
+              <AmenitiesItem icon={<Icon symbol='kayak' />} text='Kayaks' />
+            </AmenitiesGrid>
+          </AmenitiesSection>
+        </Column>
+
+        <Column>
+          {data.site.amenities.map(item => (
+            <AmenitiesSection key={item.name}>
+              <Label>{item.name}</Label>
+              <AmenitiesGrid>
+                {item.amenities.map(amenity => (
+                  <AmenityItemGrid key={amenity.name}>
+                    <AmenityName>{amenity.name}</AmenityName>
+                    <AmenityDescription>{amenity.description}</AmenityDescription>
+                  </AmenityItemGrid>
+                ))}
+              </AmenitiesGrid>
+
+            </AmenitiesSection>
+          ))}
+        </Column>
 
       </AmenitiesBody>
     </Main>

@@ -285,6 +285,17 @@ const Stars = styled.div`
   padding: 0 0 2px 0;
 `
 
+const MapFrame = styled.iframe`
+  height: 500px;
+  width: 100%;
+  border: 0px;
+`
+
+const MapContainer = styled.div`
+  display: block;
+  width: 100vw;
+`
+
 const IndexBody = ({ data }) => {
 
   const images = data.site.gallery.map(item => ({
@@ -411,6 +422,14 @@ const IndexBody = ({ data }) => {
               </ReviewsGrid>
             </SectionGrid>
           </ContainerBodyWidth>
+        </ContainerFullWidth>
+
+        <ContainerFullWidth>
+        <MapContainer>
+
+        <MapFrame frameborder="0"
+src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJv4paW1RJTU0R7UZrAS6IH_Y&key=${process.env.API_KEY_MAPS}`} allowfullscreen></MapFrame>
+        </MapContainer>
         </ContainerFullWidth>
 
       </BodyGrid>

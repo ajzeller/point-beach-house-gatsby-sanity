@@ -200,7 +200,7 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage
     <li className={currentPage == 'amenities' ? 'current' : ''}>
       <Link to='/amenities'>Amenities</Link>
     </li>
-    <li className={currentPage == 'faq' && 'current'}>
+    <li className={currentPage == 'faq' ? 'current' : ''}>
       <Link to='/faq'>FAQ</Link>
     </li>
     <li className={currentPage == 'blog' ? 'current' : ''}>

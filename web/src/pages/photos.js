@@ -35,6 +35,72 @@ const ImageGalleryContainer = styled.div`
   }
 `
 
+const Photos = props => {
+  const {data, errors} = props
+  console.log(data)
+
+  if (errors) {
+    return (
+      <Layout>
+        <GraphQLErrorList errors={errors} />
+      </Layout>
+    )
+  }
+
+  const site = (data || {}).site
+  const postNodes = (data || {}).posts
+    ? mapEdgesToNodes(data.posts)
+      .filter(filterOutDocsWithoutSlugs)
+      .filter(filterOutDocsPublishedInTheFuture)
+    : []
+
+  if (!site) {
+    throw new Error(
+      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
+    )
+  }
+
+  // const images = data.images.edges.map(item => ({
+  //   original: item.node.image.asset.fluid.src,
+  //   thumbnail: item.node.image.asset.fluid.src,
+  //   originalTitle: item.node.title,
+  //   // thumbnailLabel: 'label',
+  //   description: item.node.title,
+  // }))
+
+  const images = data.site.gallery.map(item => ({
+    original: item.image.asset.fluid.src,
+    thumbnail: item.image.asset.fluid.src,
+    originalAlt: item.image.alt,
+    thumbnailAlt: item.image.alt,
+    description: item.title
+  }))
+
+  return (
+    <Layout currentPage='photos'>
+      <SEO
+        title={site.title}
+        description={site.description}
+        keywords={site.keywords}
+      />
+      <Main>
+        <ImageGalleryContainer>
+          <ImageGallery 
+            items={images}
+            showBullets={true} 
+            thumbnailPosition={'bottom'}
+            showPlayButton={false}
+            showIndex={true}
+            showFullscreenButton={false}
+            />
+        </ImageGalleryContainer>
+      </Main>
+    </Layout>
+  )
+}
+
+export default Photos
+
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
     crop {
@@ -64,101 +130,17 @@ export const query = graphql`
       subtitle
       description
       keywords
-      heroTitle
-      summaryText
-    }
-    posts: allSanityPost(
-      limit: 6
-      sort: { fields: [publishedAt], order: DESC }
-      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
-    ) {
-      edges {
-        node {
-          id
-          publishedAt
-          mainImage {
-            ...SanityImage
-            alt
-          }
-          title
-          _rawExcerpt
-          slug {
-            current
-          }
-        }
-      }
-    }
-    images: allSanityGalleryImage {
-      edges {
-        node {
-          title
-          image {
-            asset {
-              fluid {
-                ...GatsbySanityImageFluid
-              }
+      gallery: photosPageGallery{
+        title
+        image {
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
             }
           }
+          alt
         }
       }
     }
   }
 `
-
-const Photos = props => {
-  const {data, errors} = props
-  console.log(data)
-
-  if (errors) {
-    return (
-      <Layout>
-        <GraphQLErrorList errors={errors} />
-      </Layout>
-    )
-  }
-
-  const site = (data || {}).site
-  const postNodes = (data || {}).posts
-    ? mapEdgesToNodes(data.posts)
-      .filter(filterOutDocsWithoutSlugs)
-      .filter(filterOutDocsPublishedInTheFuture)
-    : []
-
-  if (!site) {
-    throw new Error(
-      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
-    )
-  }
-
-  const images = data.images.edges.map(item => ({
-    original: item.node.image.asset.fluid.src,
-    thumbnail: item.node.image.asset.fluid.src,
-    originalTitle: item.node.title,
-    // thumbnailLabel: 'label',
-    description: item.node.title,
-  }))
-
-  return (
-    <Layout currentPage='photos'>
-      <SEO
-        title={site.title}
-        description={site.description}
-        keywords={site.keywords}
-      />
-      <Main>
-        <ImageGalleryContainer>
-          <ImageGallery 
-            items={images}
-            showBullets={true} 
-            thumbnailPosition={'bottom'}
-            showPlayButton={false}
-            showIndex={true}
-            showFullscreenButton={false}
-            />
-        </ImageGalleryContainer>
-      </Main>
-    </Layout>
-  )
-}
-
-export default Photos

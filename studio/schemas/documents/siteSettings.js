@@ -106,6 +106,21 @@ export default {
       ]
     },
     {
+      name: 'photosPageGallery',
+      type: 'array',
+      title: 'Photos Page Gallery',
+      of: [
+        {
+          type: 'reference',
+          to: [ 
+            {
+              type: 'galleryImage'
+            }
+          ]
+        }
+      ]
+    },
+    {
       name: 'reviews',
       type: 'array',
       title: 'Reviews',

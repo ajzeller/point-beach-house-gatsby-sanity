@@ -48,8 +48,6 @@ const IndexPage = props => {
     )
   }
 
-  console.log(process.env.API_KEY_MAPS)
-
   return (
     <Layout currentPage='index'>
       <SEO

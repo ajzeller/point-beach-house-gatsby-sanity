@@ -428,7 +428,7 @@ const IndexBody = ({ data }) => {
         <MapContainer>
 
         <MapFrame frameborder="0"
-src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJv4paW1RJTU0R7UZrAS6IH_Y&key=${process.env.API_KEY_MAPS}`} allowfullscreen></MapFrame>
+src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJv4paW1RJTU0R7UZrAS6IH_Y&key=${process.env.GATSBY_API_KEY_MAPS}`} allowfullscreen></MapFrame>
         </MapContainer>
         </ContainerFullWidth>
 

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import styles from './blog-post-preview-list.module.css'
 
-const PostGrid = styled.grid`
+const PostGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   justify-items: left;

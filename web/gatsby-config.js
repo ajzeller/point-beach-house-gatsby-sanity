@@ -41,5 +41,17 @@ module.exports = {
         head: true
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Visit Egg Harbor - Point Beach House`,
+        short_name: `Point Beach House`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#5B9BF9`,
+        display: `standalone`,
+      },
+    },
+    `gatsby-plugin-offline`
   ]
 }

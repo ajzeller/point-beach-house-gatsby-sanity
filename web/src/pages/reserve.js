@@ -124,7 +124,9 @@ const Reserve = props => {
         description={site.description}
         keywords={site.keywords}
       />
+
       <ContainerBodyWidth>
+        
         <CalendarGrid>
           <div>
             <Title>Availability</Title>

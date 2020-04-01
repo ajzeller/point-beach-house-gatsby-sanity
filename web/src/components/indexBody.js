@@ -293,7 +293,6 @@ const MapFrame = styled.iframe`
 
 const MapContainer = styled.div`
   display: block;
-  width: 100vw;
 `
 
 const IndexBody = ({ data }) => {

@@ -12,11 +12,14 @@ const PostGrid = styled.div`
   justify-items: left;
 `
 
+const SectionTitle = styled(Label)`
+  margin: 0 0 16px 0;
+`
+
 function BlogPostPreviewGrid (props) {
   return (
-    <>
     <div className={styles.root}>
-      {props.title && <Label>{props.title}</Label>}
+      {props.title && <SectionTitle>{props.title}</SectionTitle>}
       <ul className={styles.grid}>
         {props.nodes &&
           props.nodes.map(node => (
@@ -31,23 +34,6 @@ function BlogPostPreviewGrid (props) {
         </div>
       )}
     </div>
-    <div className={styles.root}>
-      {props.title && <Label>{props.title}</Label>}
-      <ul className={styles.grid}>
-        {props.nodes &&
-          props.nodes.map(node => (
-            <li key={node.id}>
-              <BlogPostPreview {...node} isInList />
-            </li>
-          ))}
-      </ul>
-      {props.browseMoreHref && (
-        <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref}>Browse more</Link>
-        </div>
-      )}
-    </div>
-    </>
   )
 }
 

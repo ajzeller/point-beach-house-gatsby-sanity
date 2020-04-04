@@ -11,7 +11,56 @@ import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import styled from 'styled-components'
+import Main from '../components/main'
 
+const Blog = props => {
+  const {data, errors} = props
+  console.log(data)
+
+  if (errors) {
+    return (
+      <Layout>
+        <GraphQLErrorList errors={errors} />
+      </Layout>
+    )
+  }
+
+  const site = (data || {}).site
+  const postNodes = (data || {}).posts
+    ? mapEdgesToNodes(data.posts)
+      .filter(filterOutDocsWithoutSlugs)
+      .filter(filterOutDocsPublishedInTheFuture)
+    : []
+
+  if (!site) {
+    throw new Error(
+      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
+    )
+  }
+
+  return (
+    <Layout currentPage='blog'>
+      <SEO
+        title={site.title}
+        description={site.description}
+        keywords={site.keywords}
+      />
+      <Main>
+        <h1 hidden>Welcome to {site.title}</h1>
+        <h1>Blog</h1>
+        {postNodes && (
+          <BlogPostPreviewList
+            title='Latest blog posts'
+            nodes={postNodes}
+            browseMoreHref='/archive/'
+          />
+        )}
+      </Main>
+    </Layout>
+  )
+}
+
+export default Blog
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -54,6 +103,11 @@ export const query = graphql`
           mainImage {
             ...SanityImage
             alt
+            asset {
+              fluid {
+                ...GatsbySanityImageFluid
+              }
+            }
           }
           title
           _rawExcerpt
@@ -65,51 +119,3 @@ export const query = graphql`
     }
   }
 `
-
-const Blog = props => {
-  const {data, errors} = props
-  console.log(data)
-
-  if (errors) {
-    return (
-      <Layout>
-        <GraphQLErrorList errors={errors} />
-      </Layout>
-    )
-  }
-
-  const site = (data || {}).site
-  const postNodes = (data || {}).posts
-    ? mapEdgesToNodes(data.posts)
-      .filter(filterOutDocsWithoutSlugs)
-      .filter(filterOutDocsPublishedInTheFuture)
-    : []
-
-  if (!site) {
-    throw new Error(
-      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
-    )
-  }
-
-  return (
-    <Layout currentPage='blog'>
-      <SEO
-        title={site.title}
-        description={site.description}
-        keywords={site.keywords}
-      />
-      <Container>
-        <h1 hidden>Welcome to {site.title}</h1>
-        {postNodes && (
-          <BlogPostPreviewList
-            title='Latest blog posts'
-            nodes={postNodes}
-            browseMoreHref='/archive/'
-          />
-        )}
-      </Container>
-    </Layout>
-  )
-}
-
-export default Blog

@@ -1,46 +1,55 @@
-import {Link} from 'gatsby'
 import React from 'react'
-import BlogPostPreview from './blog-post-preview'
-import { Label } from './indexBody'
+import {Link} from 'gatsby'
 import styled from 'styled-components'
+import BlogPostPreview from './blog-post-preview'
+import { IoIosArrowRoundForward } from "react-icons/io";
 
-import styles from './blog-post-preview-list.module.css'
 
-const PostGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: left;
+const BlogPostPreviewListContainer = styled.div`
+  margin: 0 0 24px 0;
 `
 
-const SectionTitle = styled(Label)`
-  margin: 0 0 16px 0;
+const BlogPostList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    margin: 0 0 24px 0;
+  }
 `
 
-function BlogPostPreviewGrid (props) {
+const BrowseMore = styled.div`
+  a {
+    display: flex;
+    align-items: center;
+  }
+  
+`
+
+function BlogPostPreviewList (props) {
   return (
-    <div className={styles.root}>
-      {props.title && <SectionTitle>{props.title}</SectionTitle>}
-      <ul className={styles.grid}>
+    <BlogPostPreviewListContainer>
+      <BlogPostList>
         {props.nodes &&
           props.nodes.map(node => (
             <li key={node.id}>
               <BlogPostPreview {...node} isInList />
             </li>
           ))}
-      </ul>
+      </BlogPostList>
       {props.browseMoreHref && (
-        <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref}>Browse more</Link>
-        </div>
+        <BrowseMore>
+          <Link to={props.browseMoreHref}>Browse more <IoIosArrowRoundForward size='24px'/></Link>
+        </BrowseMore>
       )}
-    </div>
+    </BlogPostPreviewListContainer>
   )
 }
 
-BlogPostPreviewGrid.defaultProps = {
+BlogPostPreviewList.defaultProps = {
   title: '',
   nodes: [],
   browseMoreHref: ''
 }
 
-export default BlogPostPreviewGrid
+export default BlogPostPreviewList

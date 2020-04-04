@@ -12,7 +12,7 @@ import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import styled from 'styled-components'
 import Main from '../components/main'
-import IndexBody from '../components/indexBody'
+import IndexBody, {Label} from '../components/indexBody'
 
 const BlogPreviewContainer = styled.div`
   /* border-top: 1px solid ${props => props.theme.border.secondary}; */
@@ -21,6 +21,10 @@ const BlogPreviewContainer = styled.div`
   box-sizing: border-box;
   margin: 0px auto 0 auto;
   padding: 0 10px;
+`
+
+const BlogSectionTitle = styled(Label)`
+  margin: 36px 0 16px 0;
 `
 
 const IndexPage = props => {
@@ -69,11 +73,14 @@ const IndexPage = props => {
           <Main>
             <h1 hidden>Welcome to {site.title}</h1>
             {postNodes && (
-              <BlogPostPreviewList
-              title='Latest blog posts'
-              nodes={postNodes}
-              browseMoreHref='/archive/'
-              />
+              <>
+                <BlogSectionTitle>Latest Blog Posts</BlogSectionTitle>
+                <BlogPostPreviewList
+                title='Latest blog posts'
+                nodes={postNodes}
+                browseMoreHref='/archive/'
+                />
+              </>
               )}
           </Main>
         </BlogPreviewContainer>
@@ -188,6 +195,11 @@ export const query = graphql`
           mainImage {
             ...SanityImage
             alt
+            asset {
+              fluid {
+                ...GatsbySanityImageFluid
+              }
+            }
           }
           title
           _rawExcerpt

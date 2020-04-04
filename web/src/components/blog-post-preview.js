@@ -1,40 +1,66 @@
-import {format} from 'date-fns'
+import {format, distanceInWords, differenceInDays} from 'date-fns'
 import {Link} from 'gatsby'
 import React from 'react'
+import Img from "gatsby-image"
 import {buildImageObj, cn, getBlogUrl} from '../lib/helpers'
 import {imageUrlFor} from '../lib/image-url'
 import PortableText from './portableText'
 
-import styles from './blog-post-preview.module.css'
-import {responsiveTitle3} from './typography.module.css'
+import styled from 'styled-components'
+
+const Image = styled(Img)`
+  width: 100%;
+  height: 200px;
+`
+
+const BlogPostGrid = styled.div`
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-gap: 16px;
+  box-sizing: border-box;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  &:hover {
+    h4{
+      text-decoration: underline;
+    }
+  }
+`
+
+const BlogPostData = styled.div`
+`
+
+const BlogPostTitle = styled.h4`
+  font-size: 1.6rem;
+  margin: 12px 0;
+`
+
+const PublishedDate = styled.p`
+  margin: 6px 0;
+`
 
 function BlogPostPreview (props) {
   return (
-    <Link
-      className={props.isInList ? styles.inList : styles.inGrid}
-      to={getBlogUrl(props.publishedAt, props.slug.current)}
-    >
-      <div className={styles.leadMediaThumb}>
+    <Link to={getBlogUrl(props.publishedAt, props.slug.current)}>
+      <BlogPostGrid>
         {props.mainImage && props.mainImage.asset && (
-          <img
-            src={imageUrlFor(buildImageObj(props.mainImage))
-              .width(600)
-              .height(Math.floor((9 / 16) * 600))
-              .auto('format')
-              .url()}
-            alt={props.mainImage.alt}
-          />
+          <Image fluid={props.mainImage.asset.fluid} />
         )}
-      </div>
-      <div className={styles.text}>
-        <h3 className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
-        {props._rawExcerpt && (
-          <div className={styles.excerpt}>
-            <PortableText blocks={props._rawExcerpt} />
-          </div>
-        )}
-        <div className={styles.date}>{format(props.publishedAt, 'MMMM Do, YYYY')}</div>
-      </div>
+        <BlogPostData>
+          <BlogPostTitle>{props.title}</BlogPostTitle>
+          <PortableText blocks={props._rawExcerpt} />
+          <PublishedDate>
+            {props.publishedAt && (
+              differenceInDays(new Date(), new Date(props.publishedAt)) <= 14
+                ? `Updated ${distanceInWords(new Date(props.publishedAt), new Date())} ago`
+                : format(new Date(props.publishedAt), 'MMMM Do YYYY')
+            )}
+          </PublishedDate>
+        </BlogPostData>
+      </BlogPostGrid>
     </Link>
   )
 }

@@ -1,6 +1,6 @@
 import {Link} from 'gatsby'
 import React, { useContext, useState } from 'react'
-import styled, {ThemeContext} from 'styled-components'
+import styled from 'styled-components'
 import Logo from '../assets/logo-2.svg'
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 
@@ -10,10 +10,8 @@ const HeaderContainer = styled.div`
   top: 0;
   width: 100%;
   background-color: ${props => props.theme.bg.primary};
-  /* border-bottom: 1px solid ${props => props.theme.border.secondary}; */
 
   ul{
-    /* display: flex; */
     list-style-type:none;
     margin: 0;
     padding: 0;
@@ -149,7 +147,6 @@ const Title = styled.div`
     font-weight: 600;
     margin: 0;
     font-size: 1.2rem;
-
   }
 
   .subtitle{
@@ -183,12 +180,6 @@ const Dropdown = styled.div`
 
 const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage}) => {
   const [dropdownShown, setDropdownShown] = useState(false)
-  console.log(dropdownShown)
-
-  const themeContext = useContext(ThemeContext);
-  console.log(themeContext)
-
-  console.log(currentPage)
 
   const linksList = (<ul>
     <li className={currentPage == 'index' ? 'current': ''}>
@@ -224,11 +215,7 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle, subtitle, currentPage
           </Link>
 
         <Menu>
-          {/* <button onClick={ () => setDropdownShown(prev => !prev)} style={{padding: 0}}>
-            <Icon symbol='menu' />
-          </button> */}
           {dropdownShown ? <IoMdClose size='30px' onClick={ () => setDropdownShown(prev => !prev)} /> : <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} />}
-          {/* <IoIosMenu size='30px' onClick={ () => setDropdownShown(prev => !prev)} /> */}
           {linksList}
         </Menu>
 

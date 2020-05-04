@@ -13,7 +13,7 @@ export default {
               sites: [
                 {
                   buildHookId: '5e5c69dd47370fadf6b049ca',
-                  title: 'Admin Site (Sanity Studio)',
+                  title: 'Admin Dashboard (Sanity Studio)',
                   name: 'visiteggharboradmin',
                   apiId: '9810b3d8-43f2-4eb4-a5e9-9aff66e1e9a9'
                 },

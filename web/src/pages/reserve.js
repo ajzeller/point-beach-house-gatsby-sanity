@@ -17,27 +17,30 @@ import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import Main from '../components/main'
 import { ContainerBodyWidth, ContainerFullWidth } from '../components/indexBody'
-import VideoButton from '../components/video-button'
+import VideoButton, {ButtonPrimary, ButtonSecondary} from '../components/video-button'
 import Sunset from '../assets/svg/sunset_graphic.svg'
+import copy from 'copy-to-clipboard';
 
 const CalendarGrid = styled.div`
   display: grid;
   margin: 50px 0;
   grid-template-columns: 1fr;
-  align-items: center;
+  align-items: left;
+  padding: 0 12px;
 
-  @media (min-width: 600px) {
+  /* @media (min-width: 600px) {
     grid-template-columns: 350px 1fr;
-  }
+  } */
 `
 
 const FullWidthBackground = styled(ContainerFullWidth)`
   background-color: ${props => props.theme.bg.secondary};
   border-top: 1px solid ${props => props.theme.border.primary};
+  padding: 50px 0;
 `
 
 const HeroImage = styled(Image)`
-  display: none;
+  display: block;
   height: 400px;
 
   @media (min-width: 600px) {
@@ -83,8 +86,17 @@ const FormContainer = styled.div`
 `
 
 const Title = styled.h2`
-  text-align: center;
+  /* text-align: center; */
   /* color: ${props => props.theme.colors.blue}; */
+`
+
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  button{
+    margin: 12px 12px 0 0;
+  }
 `
 
 const Reserve = props => {
@@ -126,25 +138,64 @@ const Reserve = props => {
       />
 
       <ContainerBodyWidth>
-        
+
         <CalendarGrid>
-          <div>
+          {/* <div>
             <Title>Availability</Title>
             <CalendarWidget src="https://secure.ownerreservations.com/widgets/f68fb359a8de404a83caf96e0a236d55?seq=0&amp;propertyKey=cdfd55b69b49464199cb424075a49f4b" frameborder="0" scrolling="no" seamless="seamless" allowtransparency="true" ></CalendarWidget>
+          </div> */}
+
+          <div>
+            <Title>Make a Reservation</Title>
+              <p>
+                We offer direct booking via email to give you the lowest nightly rate.
+                Please tell us a bit about the details of your stay and we'll get back to you with a confirmation.
+                You don't have to pay yet.
+              </p>
+
+              <ButtonGroup>
+                <a href="mailto:pointbeachdoorcounty@gmail.com" target="_blank">
+                  <ButtonPrimary>
+                    Email us at pointbeachdoorcounty@gmail.com
+                  </ButtonPrimary>
+                </a>
+
+                <ButtonSecondary onClick={() => copy('pointbeachdoorcounty@gmail.com')}>
+                  Copy email address to clipboard
+                </ButtonSecondary>
+              </ButtonGroup>
+
+
+
+
+              <p>And please include:</p>
+
+              <ul>
+                <li>Name</li>
+                <li>Phone number</li>
+                <li>Number of adults</li>
+                <li>Number of children</li>
+                <li>Date of arrival and date of departure</li>
+              </ul>
+
+              <a href="https://www.vrbo.com/4728373ha?noDates=true&unitId=5700929" target="_blank">
+                <ButtonPrimary style={{marginTop: '40px'}}>
+                  View Listing on VRBO
+                </ButtonPrimary>
+              </a>
           </div>
 
-          <HeroImage fluid={data.site.heroImage.image.asset.fluid} alt={data.site.heroImage.image.alt} />
         </CalendarGrid>
       </ContainerBodyWidth>
 
       <FullWidthBackground>
         <ContainerBodyWidth>
-          <FormContainer>
-
+            <HeroImage fluid={data.site.heroImage.image.asset.fluid} alt={data.site.heroImage.image.alt} />
+          {/* <FormContainer>
             <Title>Make a reservation</Title>
             <p>Please tell us a bit about the details of your stay and we'll get back to you with a confirmation. You don't have to pay yet.</p>
             <FormWidget src="https://secure.ownerreservations.com/widgets/1fa1c03d88ba434aafd6185297086259?seq=0&amp;propertyKey=cdfd55b69b49464199cb424075a49f4b" scrolling="yes" frameborder="0" seamless="seamless" allowtransparency="true" ></FormWidget>
-          </FormContainer>
+          </FormContainer> */}
         </ContainerBodyWidth>
       </FullWidthBackground>
 

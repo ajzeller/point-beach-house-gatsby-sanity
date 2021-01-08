@@ -35,6 +35,7 @@ export const Button = styled.button`
 export const ButtonPrimary  = styled(Button)`
   background-color: ${props => props.theme.colors.blue};
   color: white;
+  margin: 0;
 
   &:hover {
     background-color: ${props => props.theme.buttons.blueHover};
@@ -45,6 +46,7 @@ export const ButtonSecondary = styled(Button)`
   background-color: white;
   color: ${props => props.theme.colors.blue};
   /* border: 1px solid ${props => props.theme.border.secondary}; */
+  margin: 0;
 
   border: 1px solid ${props => props.theme.colors.blue};
 

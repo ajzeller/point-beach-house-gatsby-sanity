@@ -48,7 +48,7 @@
     "gatsby-plugin-sharp": "^2.5.3",
     "gatsby-plugin-styled-components": "^3.1.19",
     "gatsby-transformer-sharp": "^2.3.16",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react-icons": "^3.9.0",
     "react-image-gallery": "^1.0.6",
     "react-modal-video": "^1.2.3",
